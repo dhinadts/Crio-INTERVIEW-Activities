@@ -4,12 +4,13 @@ import CardSection from "./CardSection";
 import Transactions from './Transactions';
 
 const Heading = ({ title = "Expense Tracker" }) => {
-  useEffect(()=>{
-   localStorage.setItem("balance", 5000);
-   localStorage.setItem("expenses", JSON.stringify([]));
+  // useEffect(()=>{
+  // //   if(!Number(localStorage.getItem('balance'))){
+  // //  localStorage.setItem("balance", 5000);}
+  // // //  localStorage.setItem("expenses", JSON.stringify([]));
 
 
-  });
+  // });
   return (
     <div>
     

@@ -37,7 +37,7 @@ const ExpenseDialog = ({
     setShowDialog(false);
     onExpenseAdded();
 
-    window.location.reload();
+    // window.location.reload();
   };
 
   if (!showDialog) return null;

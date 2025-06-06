@@ -38,7 +38,7 @@ const CardSection = () => {
   return (
     <div className="CardSection">
       <div className="card-container">
-        <div className="card-details">
+        <div /* className="card-details" */>
           <h3>
             Wallet Balance:{" "}
             <span style={{ color: "green", fontSize: 25 }}>
@@ -72,7 +72,7 @@ const CardSection = () => {
       )}
 
       <div className="card-container">
-        <div className="card-details">
+        <div /* className="card-details" */>
           <h3>
             Expenses:{" "}
             <span style={{ color: "orange", fontSize: 25 }}>
