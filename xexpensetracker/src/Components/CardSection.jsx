@@ -38,7 +38,7 @@ const CardSection = () => {
   return (
     <div className="CardSection">
       <div className="card-container">
-        <div /* className="card-details" */>
+      {/*   <div  className="card-details" > */}
           <h3>
             Wallet Balance:{" "}
             <span style={{ color: "green", fontSize: 25 }}>
@@ -55,7 +55,7 @@ const CardSection = () => {
           >
             + Add Income
           </button>
-        </div>
+        {/* </div> */}
       </div>
 
       {showDialog1 && (
@@ -72,8 +72,8 @@ const CardSection = () => {
       )}
 
       <div className="card-container">
-        <div /* className="card-details" */>
-          <h3>
+       {/*  <div  className="card-details" >
+        */}   <h3>
             Expenses:{" "}
             <span style={{ color: "orange", fontSize: 25 }}>
               ${expense.toFixed(2)}
@@ -90,7 +90,7 @@ const CardSection = () => {
           >
             + Add Expense
           </button>
-        </div>
+        {/* </div> */}
       </div>
 
       {showDialog2 && (
