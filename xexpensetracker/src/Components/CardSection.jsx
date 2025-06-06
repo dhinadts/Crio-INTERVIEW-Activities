@@ -39,7 +39,7 @@ const CardSection = () => {
           <h3>
             Wallet Balance:{" "}
             <span style={{ color: "green", fontSize: 25 }}>
-              ₹{balance.toFixed(2)}
+              ${balance.toFixed(2)}
             </span>
           </h3>
           <button
@@ -73,7 +73,7 @@ const CardSection = () => {
           <h3>
             Expenses:{" "}
             <span style={{ color: "orange", fontSize: 25 }}>
-              ₹{expense.toFixed(2)}
+              ${expense.toFixed(2)}
             </span>
           </h3>
           <button

@@ -38,7 +38,7 @@ const Transactions = () => {
 
                   <div className="right-section">
                     <span className="amount" name="amount">
-                      ₹{e.amount}
+                      ${e.amount}
                     </span>
                     <MdDelete
                       size={24}
