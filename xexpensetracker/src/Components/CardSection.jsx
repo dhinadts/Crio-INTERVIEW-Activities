@@ -25,7 +25,7 @@ const CardSection = () => {
       setExpensesList(expensesArray);
 
       const totalExpense = expensesArray.reduce(
-        (sum, expense) => sum + Number(expense.price),
+        (sum, expense) => sum + Number(expense.amount),
         0
       );
       setExpense(totalExpense);

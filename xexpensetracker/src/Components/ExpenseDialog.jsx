@@ -3,7 +3,7 @@ import "./ExpenseDialog.css";
 
 const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
+  const [amount, setamount] = useState("");
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
   const [expensesList, setExpensesList] = useState([]);
@@ -18,7 +18,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newExpense = { title, price: parseFloat(price), category, date };
+    const newExpense = { title, amount: parseFloat(amount), category, date };
 
     const updatedExpenses = [...expensesList, newExpense];
     setExpensesList(updatedExpenses);
@@ -52,11 +52,11 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
             <div className="form-group">
               <input
                 type="number"
-                id="price"
-                name='price'
+                id="amount"
+                name='amount'
                 placeholder="₹0"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                value={amount}
+                onChange={(e) => setamount(e.target.value)}
                 required
               />
             </div>

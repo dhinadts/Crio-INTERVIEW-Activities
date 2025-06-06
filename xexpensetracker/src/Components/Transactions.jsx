@@ -12,7 +12,7 @@ const Transactions = () => {
     if (saved) {
       setExpensesList(JSON.parse(saved));
     }
-    console.log(items);
+    // console.log(items);
   }, []);
 
   return (
@@ -37,7 +37,7 @@ const Transactions = () => {
                   </div>
 
                   <div className="right-section">
-                    <span className="price">₹120</span>
+                    <span className="amount">₹120</span>
                     <MdDelete
                       size={24}
                       color={e.color}
