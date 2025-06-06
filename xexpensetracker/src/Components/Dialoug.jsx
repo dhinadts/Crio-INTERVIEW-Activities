@@ -3,10 +3,12 @@ import "./Dialog.css";
 
 const Dialog = ({ showDialog = false, setShowDialog }) => {
   const [incomeAmount, setIncome] = useState(0);
+  const [prev, getPrev] = useState(0);
   useEffect(() => {
      const savedIncome = localStorage.getItem("income");
+    
     if (savedIncome) {
-      setIncome(JSON.parse(savedIncome));
+      getPrev(JSON.parse(savedIncome));
     }
   }, []);
 
@@ -16,7 +18,7 @@ const Dialog = ({ showDialog = false, setShowDialog }) => {
   e.preventDefault();
     console.log("Adding income:", incomeAmount);
 
-    localStorage.setItem("income", JSON.stringify(Number(incomeAmount)));
+    localStorage.setItem("income", (JSON.stringify(Number(incomeAmount))+prev));
     setShowDialog(false);
     window.location.reload(); // optional: refresh to update UI
   };
@@ -43,6 +45,7 @@ const Dialog = ({ showDialog = false, setShowDialog }) => {
               type="submit"
               onClick={() => {
                 console.log(incomeAmount);
+                handleAddBalance(incomeAmount);
               }}
               className="dialog-btn"
             >
