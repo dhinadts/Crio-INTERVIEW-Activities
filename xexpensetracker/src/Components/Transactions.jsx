@@ -37,7 +37,9 @@ const Transactions = () => {
                   </div>
 
                   <div className="right-section">
-                    <span className="amount">₹120</span>
+                    <span className="amount" name="amount">
+                      ₹{e.amount}
+                    </span>
                     <MdDelete
                       size={24}
                       color={e.color}
@@ -50,6 +52,7 @@ const Transactions = () => {
                           "expenses",
                           JSON.stringify(updatedExpenses)
                         );
+                        window.location.reload();
                       }}
                     />
                     <MdEdit size={24} color={e.color} />

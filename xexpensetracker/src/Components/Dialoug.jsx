@@ -16,11 +16,10 @@ const Dialog = ({ showDialog = false, setShowDialog, onIncomeAdded }) => {
     e.preventDefault();
     const newIncome = Number(incomeAmount) + Number(prev);
     localStorage.setItem("income", JSON.stringify(newIncome));
-    if (!incomeAmount) return;
-    onIncomeAdded(Number(incomeAmount));
-    // setShowDialog(false);
+    // if (!incomeAmount) return;
+    // onIncomeAdded(Number(incomeAmount));
     setShowDialog(false);
-    window.location.reload(); // Optional: Replace with state lifting for better UX
+    window.location.reload();
   };
 
   if (!showDialog) return null;
