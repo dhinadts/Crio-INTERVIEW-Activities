@@ -25,7 +25,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
     setShowDialog(false);
     window.location.reload();
-    
+
 
   };
 
@@ -41,6 +41,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
               <input
                 type="text"
                 id="title"
+                name='title'
                 placeholder="Enter title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -52,6 +53,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
               <input
                 type="number"
                 id="price"
+                name='price'
                 placeholder="₹0"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -64,6 +66,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
             <div className="form-group">
               <select
                 id="category"
+                name="categaory"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required
