@@ -18,7 +18,7 @@ const Dialog = ({ showDialog = false, setShowDialog }) => {
   e.preventDefault();
     console.log("Adding income:", incomeAmount);
 
-    localStorage.setItem("income", (JSON.stringify(Number(incomeAmount))+prev));
+    localStorage.setItem("income", (JSON.stringify(Number(incomeAmount))+Number(prev)));
     setShowDialog(false);
     window.location.reload(); // optional: refresh to update UI
   };
