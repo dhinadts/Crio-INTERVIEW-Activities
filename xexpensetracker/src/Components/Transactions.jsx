@@ -68,7 +68,7 @@ const Transactions = () => {
               </div>
             ))
           ) : (
-            <div className="card-details content">No transactions!</div>
+            <div className="content">No transactions!</div>
           )}
         </div>
       </div>
