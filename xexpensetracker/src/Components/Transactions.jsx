@@ -52,7 +52,7 @@ const Transactions = () => {
                           "expenses",
                           JSON.stringify(updatedExpenses)
                         );
-                        // window.location.reload();
+                        window.location.reload();
                       }}
                     />
                     <MdEdit size={24} color={e.color} />

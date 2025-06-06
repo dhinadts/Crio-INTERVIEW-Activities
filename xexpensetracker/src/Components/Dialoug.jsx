@@ -19,7 +19,7 @@ const Dialog = ({ showDialog = false, setShowDialog, onIncomeAdded }) => {
     // if (!incomeAmount) return;
     // onIncomeAdded(Number(incomeAmount));
     setShowDialog(false);
-    // window.location.reload();
+    window.location.reload();
   };
 
   if (!showDialog) return null;
