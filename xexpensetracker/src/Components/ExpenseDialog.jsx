@@ -28,10 +28,10 @@ const ExpenseDialog = ({
     const updatedExpenses = [...expensesList, newExpense];
     setExpensesList(updatedExpenses);
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-    const savedIncome = localStorage.getItem("income");
+    const savedIncome = localStorage.getItem("balance");
     if (savedIncome) {
       let income = Number(savedIncome) - Number(newExpense.amount);
-      localStorage.setItem("income", income);
+      localStorage.setItem("balance", income);
       // console.log("res", income);
     }
     setShowDialog(false);

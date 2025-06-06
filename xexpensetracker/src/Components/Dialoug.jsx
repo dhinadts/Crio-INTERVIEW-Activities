@@ -6,7 +6,7 @@ const Dialog = ({ showDialog = false, setShowDialog, onIncomeAdded }) => {
   const [prev, getPrev] = useState(0);
 
   useEffect(() => {
-    const savedIncome = localStorage.getItem("income");
+    const savedIncome = localStorage.getItem("balance");
     if (savedIncome) {
       getPrev(JSON.parse(savedIncome));
     }
@@ -15,7 +15,7 @@ const Dialog = ({ showDialog = false, setShowDialog, onIncomeAdded }) => {
   const handleAddBalance = (e) => {
     e.preventDefault();
     const newIncome = Number(incomeAmount) + Number(prev);
-    localStorage.setItem("income", JSON.stringify(newIncome));
+    localStorage.setItem("balance", JSON.stringify(newIncome));
     // if (!incomeAmount) return;
     // onIncomeAdded(Number(incomeAmount));
     setShowDialog(false);

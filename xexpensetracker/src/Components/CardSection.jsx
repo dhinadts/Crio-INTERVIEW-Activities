@@ -11,7 +11,7 @@ const CardSection = () => {
   const [showDialog2, setShowDialog2] = useState(false);
   const [expensesList, setExpensesList] = useState([]);
   useEffect(() => {
-    const savedIncome = localStorage.getItem("income");
+    const savedIncome = localStorage.getItem("balance");
     if (savedIncome) {
       setBalance(Number(savedIncome));
     }
@@ -30,7 +30,7 @@ const CardSection = () => {
   }, []);
 
   const handleBalance = () => {
-    const savedIncome = localStorage.getItem("income");
+    const savedIncome = localStorage.getItem("balance");
     if (savedIncome) {
       setBalance(Number(savedIncome));
     }
@@ -65,7 +65,7 @@ const CardSection = () => {
           setShowDialog={setShowDialog1}
           onIncomeAdded={(amount) => {
             const newBalance = balance + Number(amount);
-            localStorage.setItem("income", newBalance);
+            localStorage.setItem("balance", newBalance);
             setBalance(newBalance);
           }}
         />
@@ -100,7 +100,7 @@ const CardSection = () => {
           setShowDialog={setShowDialog2}
           handleBalance={handleBalance}
           onExpenseAdded={() => {
-            const savedIncome = localStorage.getItem("income");
+            const savedIncome = localStorage.getItem("balance");
             if (savedIncome) {
               setBalance(Number(savedIncome));
             }

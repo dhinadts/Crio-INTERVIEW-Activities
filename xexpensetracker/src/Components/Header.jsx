@@ -5,7 +5,7 @@ import Transactions from './Transactions';
 
 const Heading = ({ title = "Expense Tracker" }) => {
   useEffect(()=>{
-   localStorage.setItem("income", 5000);
+   localStorage.setItem("balance", 5000);
 
   });
   return (
