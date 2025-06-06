@@ -7,7 +7,7 @@ import { MdEmojiFoodBeverage, MdDelete, MdEdit } from "react-icons/md";
 const Transactions = () => {
   const [items, setExpensesList] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     const saved = localStorage.getItem("expenses");
     if (saved) {
       setExpensesList(JSON.parse(saved));
@@ -27,14 +27,31 @@ useEffect(() => {
                   <div className="left-section">
                     <MdEmojiFoodBeverage size={24} color={e.color} />
                     <div className="text-column">
-                      <span name='title' style={{ fontWeight: "500" }}>{e.title}</span>
-                      <span name='category' style={{ fontWeight: "200" }}>{e.category} {e.date}</span>
+                      <span name="title" style={{ fontWeight: "500" }}>
+                        {e.title}
+                      </span>
+                      <span name="category" style={{ fontWeight: "200" }}>
+                        {e.category} {e.date}
+                      </span>
                     </div>
                   </div>
 
                   <div className="right-section">
                     <span className="price">₹120</span>
-                    <MdDelete size={24} color={e.color} />
+                    <MdDelete
+                      size={24}
+                      color={e.color}
+                      onClick={() => {
+                        const updatedExpenses = items.filter(
+                          (exp) => exp.e.title !== e.title
+                        );
+                        setExpensesList(updatedExpenses);
+                        localStorage.setItem(
+                          "expenses",
+                          JSON.stringify(updatedExpenses)
+                        );
+                      }}
+                    />
                     <MdEdit size={24} color={e.color} />
                   </div>
                 </div>

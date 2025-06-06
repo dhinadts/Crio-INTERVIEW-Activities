@@ -60,6 +60,11 @@ const CardSection = () => {
           key={"1"}
           showDialog={showDialog1}
           setShowDialog={setShowDialog1}
+          onIncomeAdded={(amount) => {
+      const newBalance = balance + Number(amount);
+      localStorage.setItem("income", newBalance);
+      setBalance(newBalance);
+    }}
         />
       )}
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Dialog.css";
 
-const Dialog = ({ showDialog = false, setShowDialog }) => {
+const Dialog = ({ showDialog = false, setShowDialog, onIncomeAdded }) => {
   const [incomeAmount, setIncome] = useState(0);
   const [prev, getPrev] = useState(0);
 
@@ -16,6 +16,9 @@ const Dialog = ({ showDialog = false, setShowDialog }) => {
     e.preventDefault();
     const newIncome = Number(incomeAmount) + Number(prev);
     localStorage.setItem("income", JSON.stringify(newIncome));
+    if (!incomeAmount) return;
+    onIncomeAdded(Number(incomeAmount));
+    // setShowDialog(false);
     setShowDialog(false);
     window.location.reload(); // Optional: Replace with state lifting for better UX
   };
