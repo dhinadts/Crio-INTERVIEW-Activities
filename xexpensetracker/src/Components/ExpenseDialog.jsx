@@ -53,7 +53,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
               <input
                 type="number"
                 id="amount"
-                name='amount'
+                name='price'
                 placeholder="$0"
                 value={amount}
                 onChange={(e) => setamount(e.target.value)}
