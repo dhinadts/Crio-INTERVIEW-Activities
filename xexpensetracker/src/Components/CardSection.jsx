@@ -28,7 +28,7 @@ const CardSection = () => {
         (sum, expense) => sum + Number(expense.amount),
         0
       );
-      setExpense(totalExpense);
+      setExpense(totalExpense ?? 0);
     }
   }, []);
 
