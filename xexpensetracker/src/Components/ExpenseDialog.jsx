@@ -1,28 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ExpenseDialog.css";
 
 const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [date, setDate] = useState("");
+  const [expensesList, setExpensesList] = useState([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("expenses");
+    if (saved) {
+      setExpensesList(JSON.parse(saved));
+    }
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newExpense = { title, price: parseFloat(price), category, date };
+
+    const updatedExpenses = [...expensesList, newExpense];
+    setExpensesList(updatedExpenses);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+    setShowDialog(false);
+  };
+
   if (!showDialog) return null;
-const handleSubmit = (val) => {
-  localStorage.setItem('expenses', val.target.value);
-}
+
   return (
-    <div className="dialog-backdrop" onClick={() => {
-      
-      
-      setShowDialog(false);}}>
+    <div className="dialog-backdrop" onClick={() => setShowDialog(false)}>
       <div className="dialog-box" onClick={(e) => e.stopPropagation()}>
-      <label for="title" className="dialog-header">Add Expenses</label>
-
-
-        <form className="dialog-form">
+        <h2 className="dialog-header">Add Expense</h2>
+        <form className="dialog-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
               <input
                 type="text"
                 id="title"
-                name="title"
                 placeholder="Enter title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 required
               />
             </div>
@@ -31,8 +49,9 @@ const handleSubmit = (val) => {
               <input
                 type="number"
                 id="price"
-                name="price"
                 placeholder="₹0"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 required
               />
             </div>
@@ -40,23 +59,34 @@ const handleSubmit = (val) => {
 
           <div className="form-row">
             <div className="form-group">
-              <select id="category" name="category" required>
-                <option value="" disabled selected>
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+              >
+                <option value="" disabled>
                   Select Category
                 </option>
-                <option value="food">Food</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="travel">Travel</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Entertainment">Entertainment</option>
               </select>
             </div>
 
             <div className="form-group">
-              <input type="date" id="date" name="date" required />
+              <input
+                type="date"
+                id="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
             </div>
           </div>
 
           <div className="dialog-buttons">
-            <button type="submit" className="dialog-btn submit-btn" onClick={handleSubmit} > 
+            <button type="submit" className="dialog-btn submit-btn">
               Add Expense
             </button>
             <button

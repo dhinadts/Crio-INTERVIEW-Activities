@@ -157,3 +157,11 @@
 .codeIndication:nth-child(3) div {
   background-color: #66bb6a; /* Travel */
 }
+@media (max-width: 768px) {
+  .TransactionSection {
+    flex-direction: column;
+  }
+  .trans-card-container, .trans-card-container-second {
+    width: 100%;
+  }
+}

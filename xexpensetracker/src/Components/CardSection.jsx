@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CardSection.css";
 import PieCHART from "./PieChart";
 import Dialog from "./Dialoug";
@@ -11,7 +11,14 @@ const CardSection = () => {
   const [x, setX] = useState("");
   const [showDialog1, setShowDialog1] = useState(false);
   const [showDialog2, setShowDialog2] = useState(false);
+  const [localData, setTransactions] = useState("");
 
+useEffect(() => {
+  const data = JSON.parse(localStorage.getItem("transactions"));
+  if (data) setTransactions(data);
+}, []);
+
+  
   const addIncome = (amount) => {
     setBalance((prev) => prev + amount);
     setShowDialog1(false);
@@ -22,7 +29,7 @@ const CardSection = () => {
       <div className="card-container">
         <div className="card-details">
           <h3>
-            Wallet balance:{" "}
+            Wallet Balance:{" "}
             <span style={{ color: "green", fontSize: "25" }}>${balance.toFixed(2)}</span>
           </h3>
           <button
