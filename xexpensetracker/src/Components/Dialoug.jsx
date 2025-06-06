@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dialog.css";
 
 const Dialog = ({ showDialog = false, setShowDialog }) => {
   const [incomeAmount, setIncome] = useState(0);
+  useEffect(() => {
+     const savedIncome = localStorage.getItem("income");
+    if (savedIncome) {
+      setIncome(JSON.parse(savedIncome));
+    }
+  }, []);
+
+ 
 
   const handleAddBalance = (e) => {
-    e.preventDefault();
-    console.log("Adding income: ", incomeAmount);
+  e.preventDefault();
+    console.log("Adding income:", incomeAmount);
+
+    localStorage.setItem("income", JSON.stringify(Number(incomeAmount)));
     setShowDialog(false);
+    window.location.reload(); // optional: refresh to update UI
   };
 
   if (!showDialog) return null;

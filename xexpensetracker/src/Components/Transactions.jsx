@@ -7,23 +7,6 @@ import { MdEmojiFoodBeverage, MdDelete, MdEdit } from "react-icons/md";
 const Transactions = () => {
   const [items, setExpensesList] = useState([]);
 
-  /* const items = [
-     {
-      title: "Samosa",
-      subtitle: "March 20, 2024",
-      iconLeading: MdEmojiFoodBeverage,
-    },
-    {
-      title: "Movie",
-      subtitle: "March 20, 2024",
-      iconLeading: MdEmojiFoodBeverage,
-    },
-    {
-      title: "Auto",
-      subtitle: "March 20, 2024",
-      iconLeading: MdEmojiFoodBeverage,
-    }, 
-  ]; */
 useEffect(() => {
     const saved = localStorage.getItem("expenses");
     if (saved) {

@@ -7,22 +7,30 @@ import ExpenseDialog from "./ExpenseDialog";
 const CardSection = () => {
   const [balance, setBalance] = useState(0);
   const [expense, setExpense] = useState(0);
-  const [isLoading, setLoader] = useState(true);
-  const [x, setX] = useState("");
   const [showDialog1, setShowDialog1] = useState(false);
   const [showDialog2, setShowDialog2] = useState(false);
-  const [localData, setTransactions] = useState("");
+  const [expensesList, setExpensesList] = useState([]);
 
-useEffect(() => {
-  const data = JSON.parse(localStorage.getItem("transactions"));
-  if (data) setTransactions(data);
-}, []);
+  useEffect(() => {
+    // Get saved income
+    const savedIncome = localStorage.getItem("income");
+    if (savedIncome) {
+      setBalance(Number(savedIncome));
+    }
 
-  
-  const addIncome = (amount) => {
-    setBalance((prev) => prev + amount);
-    setShowDialog1(false);
-  };
+    // Get saved expenses
+    const savedExpenses = localStorage.getItem("expenses");
+    if (savedExpenses) {
+      const expensesArray = JSON.parse(savedExpenses);
+      setExpensesList(expensesArray);
+
+      const totalExpense = expensesArray.reduce(
+        (sum, expense) => sum + Number(expense.price),
+        0
+      );
+      setExpense(totalExpense);
+    }
+  }, []);
 
   return (
     <div className="CardSection">
@@ -30,7 +38,9 @@ useEffect(() => {
         <div className="card-details">
           <h3>
             Wallet Balance:{" "}
-            <span style={{ color: "green", fontSize: "25" }}>${balance.toFixed(2)}</span>
+            <span style={{ color: "green", fontSize: 25 }}>
+              ₹{balance.toFixed(2)}
+            </span>
           </h3>
           <button
             onClick={() => setShowDialog1(true)}
@@ -40,10 +50,11 @@ useEffect(() => {
               background: "linear-gradient(to right, #11cb65, #98fc25)",
             }}
           >
-            + Add Income"
+            + Add Income
           </button>
         </div>
       </div>
+
       {showDialog1 && (
         <Dialog
           key={"1"}
@@ -56,22 +67,24 @@ useEffect(() => {
         <div className="card-details">
           <h3>
             Expenses:{" "}
-            <span style={{ color: "orange", fontSize: "25" }}>${expense.toFixed(2)}</span>
+            <span style={{ color: "orange", fontSize: 25 }}>
+              ₹{expense.toFixed(2)}
+            </span>
           </h3>
           <button
             onClick={() => setShowDialog2(true)}
             className="buttonClass"
             type="button"
-            
             style={{
               background:
-                "linear-gradient(to right,rgb(240, 51, 98),rgb(243, 22, 22))",
+                "linear-gradient(to right, rgb(240, 51, 98), rgb(243, 22, 22))",
             }}
           >
             + Add Expenses
           </button>
         </div>
       </div>
+
       {showDialog2 && (
         <ExpenseDialog
           key={"2"}
@@ -80,7 +93,7 @@ useEffect(() => {
         />
       )}
 
-      <div className="chart-card-container" style={{ width: "50" }}>
+      <div className="chart-card-container">
         <div className="chart-Area">
           <PieCHART />
         </div>
