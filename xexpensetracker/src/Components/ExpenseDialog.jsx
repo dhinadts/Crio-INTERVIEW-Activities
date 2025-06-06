@@ -24,6 +24,9 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
     setExpensesList(updatedExpenses);
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
     setShowDialog(false);
+    window.location.reload();
+    
+
   };
 
   if (!showDialog) return null;
