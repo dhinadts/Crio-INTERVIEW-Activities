@@ -22,7 +22,7 @@ const Transactions = () => {
         <div className="trans-card-container">
           {items.length > 0 ? (
             items.map((e) => (
-              <div className="card-details">
+              <div >
                 <div className="list-tile" key={e.title}>
                   <div className="left-section">
                     <MdEmojiFoodBeverage size={24} color={e.color} />
@@ -31,7 +31,7 @@ const Transactions = () => {
                         {e.title}
                       </span>
                       <span name="category" style={{ fontWeight: "200" }}>
-                        {/* {e.category}  */}{e.date}
+                       {e.date}
                       </span>
                     </div>
                   </div>
