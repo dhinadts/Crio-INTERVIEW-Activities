@@ -14,7 +14,7 @@ const CardSection = () => {
     const savedIncome = localStorage.getItem("balance");
     if (savedIncome) {
       setBalance(Number(savedIncome));
-    }
+    }else {localStorage.setItem("balance", 5000);}
 
     const savedExpenses = localStorage.getItem("expenses");
     if (savedExpenses) {
@@ -88,7 +88,7 @@ const CardSection = () => {
                 "linear-gradient(to right, rgb(240, 51, 98), rgb(243, 22, 22))",
             }}
           >
-            + Add Expenses
+            + Add Expense
           </button>
         </div>
       </div>
