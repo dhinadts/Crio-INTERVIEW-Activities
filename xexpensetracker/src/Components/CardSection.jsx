@@ -10,15 +10,12 @@ const CardSection = () => {
   const [showDialog1, setShowDialog1] = useState(false);
   const [showDialog2, setShowDialog2] = useState(false);
   const [expensesList, setExpensesList] = useState([]);
-
   useEffect(() => {
-    // Get saved income
     const savedIncome = localStorage.getItem("income");
     if (savedIncome) {
       setBalance(Number(savedIncome));
     }
 
-    // Get saved expenses
     const savedExpenses = localStorage.getItem("expenses");
     if (savedExpenses) {
       const expensesArray = JSON.parse(savedExpenses);
@@ -32,6 +29,12 @@ const CardSection = () => {
     }
   }, []);
 
+  const handleBalance = () => {
+    const savedIncome = localStorage.getItem("income");
+    if (savedIncome) {
+      setBalance(Number(savedIncome));
+    }
+  };
   return (
     <div className="CardSection">
       <div className="card-container">
@@ -61,10 +64,10 @@ const CardSection = () => {
           showDialog={showDialog1}
           setShowDialog={setShowDialog1}
           onIncomeAdded={(amount) => {
-      const newBalance = balance + Number(amount);
-      localStorage.setItem("income", newBalance);
-      setBalance(newBalance);
-    }}
+            const newBalance = balance + Number(amount);
+            localStorage.setItem("income", newBalance);
+            setBalance(newBalance);
+          }}
         />
       )}
 
@@ -95,6 +98,23 @@ const CardSection = () => {
           key={"2"}
           showDialog={showDialog2}
           setShowDialog={setShowDialog2}
+          handleBalance={handleBalance}
+          onExpenseAdded={() => {
+            const savedIncome = localStorage.getItem("income");
+            if (savedIncome) {
+              setBalance(Number(savedIncome));
+            }
+            const savedExpenses = localStorage.getItem("expenses");
+            if (savedExpenses) {
+              const expensesArray = JSON.parse(savedExpenses);
+              const totalExpense = expensesArray.reduce(
+                (sum, expense) => sum + Number(expense.amount),
+                0
+              );
+              setExpense(totalExpense);
+              setExpensesList(expensesArray);
+            }
+          }}
         />
       )}
 

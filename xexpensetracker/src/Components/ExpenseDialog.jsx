@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./ExpenseDialog.css";
 
-const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
+const ExpenseDialog = ({
+  showDialog = false,
+  setShowDialog,
+  handleBalance,
+  onExpenseAdded = () => {},
+}) => {
   const [title, setTitle] = useState("");
   const [amount, setamount] = useState("");
   const [category, setCategory] = useState("");
@@ -23,10 +28,16 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
     const updatedExpenses = [...expensesList, newExpense];
     setExpensesList(updatedExpenses);
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+    const savedIncome = localStorage.getItem("income");
+    if (savedIncome) {
+      let income = Number(savedIncome) - Number(newExpense.amount);
+      localStorage.setItem("income", income);
+      // console.log("res", income);
+    }
     setShowDialog(false);
+    onExpenseAdded();
+
     window.location.reload();
-
-
   };
 
   if (!showDialog) return null;
@@ -41,7 +52,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
               <input
                 type="text"
                 id="title"
-                name='title'
+                name="title"
                 placeholder="Enter title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -53,7 +64,7 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
               <input
                 type="number"
                 id="amount"
-                name='price'
+                name="price"
                 placeholder="$0"
                 value={amount}
                 onChange={(e) => setamount(e.target.value)}
@@ -98,7 +109,10 @@ const ExpenseDialog = ({ showDialog = false, setShowDialog }) => {
             <button
               type="button"
               className="dialog-btn cancel-btn"
-              onClick={() => setShowDialog(false)}
+              onClick={() => {
+                handleBalance();
+                setShowDialog(false);
+              }}
             >
               Cancel
             </button>
