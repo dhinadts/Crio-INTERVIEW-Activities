@@ -43,7 +43,7 @@ const Transactions = () => {
                       color={e.color}
                       onClick={() => {
                         const updatedExpenses = items.filter(
-                          (exp) => exp.e.title !== e.title
+                          (exp) => exp.title !== e.title
                         );
                         setExpensesList(updatedExpenses);
                         localStorage.setItem(
