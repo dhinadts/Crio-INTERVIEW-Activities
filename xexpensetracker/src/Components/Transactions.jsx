@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Transactions.css";
 import data from "./Data";
+
 import { MdEmojiFoodBeverage, MdDelete, MdEdit } from "react-icons/md";
 
 const Transactions = () => {
-  const items = [
-    {
+  const [items, setExpensesList] = useState([]);
+
+  /* const items = [
+     {
       title: "Samosa",
       subtitle: "March 20, 2024",
       iconLeading: MdEmojiFoodBeverage,
@@ -19,8 +22,14 @@ const Transactions = () => {
       title: "Auto",
       subtitle: "March 20, 2024",
       iconLeading: MdEmojiFoodBeverage,
-    },
-  ];
+    }, 
+  ]; */
+useEffect(() => {
+    const saved = localStorage.getItem("expenses");
+    if (saved) {
+      setExpensesList(JSON.parse(saved));
+    }
+  }, []);
 
   return (
     <div className="TransactionSection">
