@@ -36,7 +36,8 @@ const Dialog = ({ showDialog = false, setShowDialog, onIncomeAdded }) => {
             <input
               type="number"
               placeholder="Income Amount"
-              value={incomeAmount}
+              // value={incomeAmount}
+              name="amount"
               onChange={(e) => setIncome(e.target.value)}
               required
             />
