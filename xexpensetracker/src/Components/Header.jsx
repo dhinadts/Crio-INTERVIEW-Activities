@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Heading.css";
 import CardSection from "./CardSection";
 import Transactions from './Transactions';
 
 const Heading = ({ title = "Expense Tracker" }) => {
+  useEffect(()=>{
+   localStorage.setItem("income", 5000);
+
+  });
   return (
     <div>
     

@@ -5,7 +5,7 @@ import Dialog from "./Dialoug";
 import ExpenseDialog from "./ExpenseDialog";
 
 const CardSection = () => {
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState(5000);
   const [expense, setExpense] = useState(0);
   const [showDialog1, setShowDialog1] = useState(false);
   const [showDialog2, setShowDialog2] = useState(false);
