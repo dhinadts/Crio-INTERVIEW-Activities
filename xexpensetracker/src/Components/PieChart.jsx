@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,  useEffect } from "react";
 import { PieChart, Pie, Legend, Cell, ResponsiveContainer } from "recharts";
 import data from "./Data";
 
@@ -67,9 +67,21 @@ const renderCustomizedLabel = ({
 };
 
 export default function RectLegendPieChart() {
-  return (
+  // const [data, getData] = useState('');
+ /*  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // Simulated data; replace with your actual data
+      const savedExpenses = localStorage.getItem("expenses");
+    if (savedExpenses) {
+      const expensesArray = JSON.parse(savedExpenses);
+      setData(expensesArray);
+    }
+ }, []); */
+
+  return (  
     <ResponsiveContainer width="100%" height={300}>
-      <PieChart>
+     <PieChart>
         <Pie
           data={data}
           cx={"50%"}
@@ -83,9 +95,9 @@ export default function RectLegendPieChart() {
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
-        </Pie>
+        </Pie> 
         <Legend layout="horizontal" content={<CustomLegend />} />
       </PieChart>
-    </ResponsiveContainer>
+    </ResponsiveContainer> 
   );
 }

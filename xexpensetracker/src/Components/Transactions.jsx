@@ -12,6 +12,7 @@ useEffect(() => {
     if (saved) {
       setExpensesList(JSON.parse(saved));
     }
+    console.log(items);
   }, []);
 
   return (
@@ -26,8 +27,8 @@ useEffect(() => {
                   <div className="left-section">
                     <MdEmojiFoodBeverage size={24} color={e.color} />
                     <div className="text-column">
-                      <span style={{ fontWeight: "500" }}>{e.title}</span>
-                      <span style={{ fontWeight: "200" }}>{e.subtitle}</span>
+                      <span name='title' style={{ fontWeight: "500" }}>{e.title}</span>
+                      <span name='category' style={{ fontWeight: "200" }}>{e.category} {e.date}</span>
                     </div>
                   </div>
 
