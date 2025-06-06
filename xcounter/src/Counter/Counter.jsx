@@ -16,7 +16,7 @@ const Counter = () => {
   return (
     <>
       <div>
-        <h1>Counetr APP</h1>
+        <h1>Counter APP</h1>
       </div>
       <div>count: {valueOfCount}</div>
       <div>
