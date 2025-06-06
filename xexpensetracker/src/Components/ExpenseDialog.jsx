@@ -95,6 +95,7 @@ const ExpenseDialog = ({
               <input
                 type="date"
                 id="date"
+                name="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
