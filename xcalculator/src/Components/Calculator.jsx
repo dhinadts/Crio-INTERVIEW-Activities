@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./Calculator.css";
 import { evaluate } from "mathjs";
 const Calculator = () => {
-  //   const result = "hi";
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
-  //   let inputVal = '';
 
   const handleClick = (val) => {
     if (val === "C") {
       setInput("");
       setResult("");
-    } else if (val === "=") {
-        handleCalculation();
+    } 
+    // else if(val === "=" ) {}
+    else if (val === "=") {
+      handleCalculation();
     } else {
       setInput((prev) => prev + val);
     }
@@ -20,12 +20,15 @@ const Calculator = () => {
 
   const handleCalculation = () => {
     try {
-      // const expression_dos = convertion(input) ;
-      const res = evaluate(input);
-      setResult(res);
+      if (input.trim() === "=" || input.trim() === '') {
+        setResult("Error");
+      } else {
+        const res = evaluate(input);
+        setResult(res);
+      }
     } catch (error) {
-        // console.log("input", input);
-        // console.log("result", result);
+      // console.log("input", input);
+      // console.log("result", result);
       setResult("Error");
     }
   };
