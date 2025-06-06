@@ -77,7 +77,7 @@ const ExpenseDialog = ({
             <div className="form-group">
               <select
                 id="category"
-                name="categaory"
+                name="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required
