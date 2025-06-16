@@ -1,0 +1,67 @@
+.dark-blue{
+    color: var(--dark-blue);
+}
+.Blog-Section{
+    padding: 2% 10%;
+    background-color: #FFFFFF;
+}
+
+.Blog-Section > p{
+    color: var(--blue);
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+    line-height: 27px;
+    margin-bottom: 0;
+}
+
+.main-heading{
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 67px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.card-flex{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card{
+    border: 1px solid #00000012;
+    width: 24vw;
+    height: 28vh;
+}
+
+.card>img{
+    width: 100%;
+}
+
+.details{
+    padding: 8px;
+}
+
+.tag, .date{
+    color: #77829D;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.partition{
+    color: #DDDDDD;
+}
+
+.heading{
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.author{
+    display: flex;
+}
+
+.author-name{
+    font-weight: 500;
+    margin-left: 8px;
+}

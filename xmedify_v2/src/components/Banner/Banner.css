@@ -1,0 +1,10 @@
+.Banner{
+    background-color: #2AA7FF;
+    max-width: 100vw;
+    height: 40px;
+    line-height: 40px; /* to vertically align text to center */
+    text-align: center;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 14px;
+}
