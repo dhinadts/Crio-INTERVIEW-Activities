@@ -67,7 +67,7 @@ const TableWithPagination = () => {
       <div style={{ marginTop: "20px" }}>
         <button
           onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
+          disabled=""
           style={{ marginRight: "10px", padding: "5px 10px" }}
         >
           Previous
