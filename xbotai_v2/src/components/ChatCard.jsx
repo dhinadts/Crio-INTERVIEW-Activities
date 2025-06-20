@@ -29,7 +29,7 @@ export default function ChatCard({
         })
       );
     }
-  }, [rating]);
+  }, [details.id, isRating, updateChat, rating]);
 
   return (
     <Stack
@@ -48,7 +48,7 @@ export default function ChatCard({
     >
       <Box
         component={"img"}
-        src={details.type == "AI" ? ai : human}
+        src={details.type === "AI" ? ai : human}
         height={{ xs: 30, md: 68 }}
         width={{ xs: 30, md: 68 }}
         borderRadius={"50%"}
@@ -61,7 +61,7 @@ export default function ChatCard({
           fontWeight={700}
           fontSize={{ xs: 14, md: 16 }}
         >
-          {details.type == "AI" ? "Soul AI" : "You"}
+          <span>{details.type === "AI" ? "Soul AI" : "You"}</span>
         </Typography>
         <Typography fontSize={{ xs: 12, md: 16 }}>{details.text}</Typography>
         <Stack direction={"row"} gap={2} alignItems={"center"} mt={1}>
@@ -69,7 +69,7 @@ export default function ChatCard({
             {format(details.time, "hh:mm a")}
           </Typography>
 
-          {details.type == "AI" && !readOnly && (
+          {details.type === "AI" && !readOnly && (
             <Stack
               direction={"row"}
               visibility={{ xs: "visible", md: "hidden" }}
@@ -99,7 +99,7 @@ export default function ChatCard({
           )}
         </Stack>
 
-        {(isRating || details.rating > 0) && details.type == "AI" && (
+        {(isRating || details.rating > 0) && details.type === "AI" && (
           <Box pt={{ xs: 1, md: 2 }}>
             <Typography
               component={"legend"}
