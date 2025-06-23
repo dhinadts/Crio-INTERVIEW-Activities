@@ -1,53 +1,88 @@
-import { Typography, Stack, IconButton, useMediaQuery } from "@mui/material";
-import { Link, useOutletContext } from "react-router-dom";
+import {
+  Box,
+  Container,
+  Button,
+  Stack,
+  Typography,
+  useMediaQuery,
+  IconButton,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import styles from "./Navbar.module.css";
+import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { ThemeContext } from "../../theme/ThemeContext";
-import { useContext } from "react";
-import styles from "./NavBar.module.css";
 
-export default function Navbar() {
-  const { handleMobileMenu } = useOutletContext();
-  const isMobile = useMediaQuery("(max-width:800px)"); // ✅ restored
-  const { setMode, mode } = useContext(ThemeContext);
+export default function NavBar() {
+  const isMobile = useMediaQuery("(max-width:900px)");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <Stack
-      component="header"
-      className={styles.navbar}
-      p={{ xs: 2, md: 3 }}
-      direction="row"
-      alignItems="center"
-      justifyContent="space-between"
-    >
-      <Stack direction="row" alignItems="center" spacing={2}>
-        {isMobile && (
-          <MenuIcon
-            className={styles.menuIcon}
-            onClick={() => handleMobileMenu((prev) => !prev)}
-          />
-        )}
-
-        <Link to="/" className={styles.brand}>
-          <Typography variant="h1" component="h1">
-            Bot AI
-          </Typography>
-        </Link>
-      </Stack>
-
-      <Stack direction="row" spacing={0.2} alignItems="center">
-        <Typography className={styles.modeLabel}>
-          {mode}
+    <header>
+      <Box p={1} bgcolor="primary.main">
+        <Typography fontSize={14} textAlign="center" color="#fff">
+          The health and well-being of our patients and their health care team
+          will always be our priority, so we follow the best practices for
+          cleanliness.
         </Typography>
-        <IconButton
-          onClick={() =>
-            setMode((prev) => (prev === "light" ? "dark" : "light"))
-          }
+      </Box>
+
+      <Container maxWidth="xl">
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          justifyContent="space-between"
+          py={2}
         >
-          {mode === "light" ? <Brightness4Icon /> : <Brightness7Icon />}
-        </IconButton>
-      </Stack>
-    </Stack>
+          <Link to="/">
+            <img src={logo} alt="Logo" height={27} />
+          </Link>
+
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={4}
+            alignItems={{ xs: "flex-start", md: "center" }}
+            className={[styles.navlinks, menuOpen && styles.active]}
+            pt={{ xs: 12, md: 1 }}
+            pb={{ xs: 4, md: 1 }}
+            px={{ xs: 4, md: 0 }}
+          >
+            <Link>Find Doctors</Link>
+            <Link to="/search">Hospitals</Link>
+            <Link>Medicines</Link>
+            <Link>Surgeries</Link>
+            <Link>Software for Provider</Link>
+            <Link>Facilities</Link>
+            <Link to="/my-bookings">
+              <Button variant="contained" disableElevation>
+                My Bookings
+              </Button>
+            </Link>
+
+            {isMobile && (
+              <IconButton
+                onClick={() => setMenuOpen(false)}
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 32,
+                  color: "#fff",
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            )}
+          </Stack>
+
+          {isMobile && (
+            <IconButton onClick={() => setMenuOpen(true)}>
+              <MenuIcon />
+            </IconButton>
+          )}
+        </Stack>
+      </Container>
+    </header>
   );
 }

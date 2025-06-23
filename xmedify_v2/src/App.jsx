@@ -19,6 +19,7 @@ import DrAhmadKhan from "./assets/Dr Ahmad Khan.png";
 import DrHeenaSachdeva from "./assets/Dr Heena Sachdeva.png";
 import DrAnkurSharma from "./assets/Dr Ankur Sharma.png";
 import "./App.css";
+import Families from './components/Families/Families';
 
 function App() {
   const carouselData = [
@@ -93,6 +94,7 @@ function App() {
         />
         <Summary />
         <BlogsAndNews />
+        <Families />
       </div>
     </>
   );
