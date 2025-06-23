@@ -27,11 +27,11 @@ export default function Hero() {
             </Typography>
             <Link to="/search">
               <Button
+                label="Search"
                 variant="contained"
                 size="large"
-                // title="Search"
-                // className="searchBtn"
-                // id="searchBtn"
+                title="Search"
+                id="searchBtn"
                 disableElevation
               >
                 Find Centers
