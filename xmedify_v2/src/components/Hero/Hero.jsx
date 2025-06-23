@@ -26,7 +26,8 @@ export default function Hero() {
               a particular doctor.
             </Typography>
             <Link to="/search">
-              <Button variant="contained" size="large" disableElevation>
+              <Button variant="contained" size="large"  title="searchBtn" 
+              disableElevation>
                 Find Centers
               </Button>
             </Link>

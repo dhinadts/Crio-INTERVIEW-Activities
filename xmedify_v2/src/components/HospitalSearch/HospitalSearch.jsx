@@ -118,6 +118,7 @@ export default function HospitalSearch() {
       <Button
         type="submit"
         variant="contained"
+        title="searchBtn"
         size="large"
         startIcon={<SearchIcon />}
         sx={{ py: "15px", px: 8, flexShrink: 0 }}
