@@ -29,9 +29,9 @@ export default function Hero() {
               <Button
                 variant="contained"
                 size="large"
-                title="Search"
+                // title="Search"
                 // className="searchBtn"
-                id="searchBtn"
+                // id="searchBtn"
                 disableElevation
               >
                 Find Centers
