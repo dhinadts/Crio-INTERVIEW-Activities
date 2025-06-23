@@ -3,7 +3,7 @@ import playstore from "../../../assets/playstore.png";
 import apple from "../../../assets/apple-logo.png";
 import arrow from "../../../assets/down-arr.png";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Grid } from  "@mui/material";
 import SmsForm from "./SmsForm";
 
 export default function DownloadApp() {

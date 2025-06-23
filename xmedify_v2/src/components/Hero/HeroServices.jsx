@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Grid } from  "@mui/material";
 import doctorIcon from "../../assets/Doctor.png";
 import pharmacyIcon from "../../assets/Drugstore.png";
 import hospitalIcon from "../../assets/Hospital.png";

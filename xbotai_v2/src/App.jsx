@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { getThemePallete } from "./theme/ThemePallete";
-import Grid from "@mui/material/Grid2";
+import {Grid} from "@mui/material";
 
 function App() {
   const [mode, setMode] = useState(localStorage.getItem("theme") || "light");

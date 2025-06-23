@@ -1,5 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Grid } from  "@mui/material";
 import IconCard from "../../Hero/IconCard";
 import icon1 from "../../../assets/Drugstore.png";
 import icon2 from "../../../assets/primary-care.png";

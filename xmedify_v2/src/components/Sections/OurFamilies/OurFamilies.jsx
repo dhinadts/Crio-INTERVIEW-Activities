@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Grid } from  "@mui/material";
 import banner from "../../../assets/our-families-banner.png";
 
 export default function OurFamilies() {

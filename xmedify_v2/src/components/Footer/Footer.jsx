@@ -1,5 +1,5 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Grid } from  "@mui/material";
 import logo from "../../assets/logo.png";
 import fb from "../../assets/fb.png";
 import pinterest from "../../assets/pinterest.png";

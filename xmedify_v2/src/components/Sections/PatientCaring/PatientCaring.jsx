@@ -7,7 +7,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Grid } from  "@mui/material";
 import banner from "../../../assets/patientcaring.png";
 import tick from "../../../assets/tick-blue.png";
 
