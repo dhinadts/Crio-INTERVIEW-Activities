@@ -1,45 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  font-family: "Poppins", Inter, sans-serif;
-  background-color: #fff;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  --blue: #2AA7FF;
-  --background-lightBlue: linear-gradient(81deg, #E7F0FF 9.01%, rgba(232, 241, 255, 0.47) 89.11%);
-  --dark-blue: #1B3C74;
+  --color-white: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  margin: 0;
-  padding: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-button {
-  border: 0px #2AA8FF;
-  border-radius: 8px;
-  background-color: #2AA8FF;
-  font-size: 14px;
-  color: #FFFFFF;
-  font-weight: 500;
-  /* line-height: 21px */
-  width: 130px;
-  height: 40px;
-  font-family: "Poppins", sans-serif;
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.swiper-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding-bottom: 5px;
+}
+
+.swiper-pagination-bullet {
+  height: 10px;
+  width: 10px;
+  background: #bcd8e9;
+  border-radius: 50%;
   cursor: pointer;
 }
 
-input {
-  font-family: "Poppins", sans-serif;
-  color: #ABB6C7;
-  font-size: 14px;
-  border: none;
-  background: none;
-  height: 50px;
-}
-
-input:focus{
-  outline: none;
-  color: black;
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #2aa7ff;
+  outline: 1px solid #2aa7ff;
+  outline-offset: 4px;
 }
