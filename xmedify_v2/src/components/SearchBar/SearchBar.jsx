@@ -38,8 +38,9 @@ export default function SearchBar({ list, filterList }) {
         />
         <Button
           type="submit"
-          title="searchBtn"
-          className="searchBtn"
+          title="Search"
+          // className="searchBtn"
+          id="searchBtn"
           variant="contained"
           size="large"
           startIcon={<SearchIcon />}
