@@ -34,7 +34,8 @@ export default function Hero() {
                 id="searchBtn"
                 disableElevation
               >
-                Find Centers
+                     <button type="submit" id="searchBtn" style={{backgroundColor: "transparent", border: "none" , color: "white"}}>Find Centers</button>
+
               </Button>
             </Link>
           </Box>
