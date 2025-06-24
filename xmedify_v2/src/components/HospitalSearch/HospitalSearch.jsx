@@ -49,13 +49,23 @@ export default function HospitalSearch() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.state && formData.city) {
-      navigate(`/search?state=${formData.state}&city=${formData.city}`);
+      try {
+        const response = await axios.get(`https://meddata-backend.onrender.com/data/`, {
+          params: { state: formData.state, city: formData.city },
+        });
+
+        // Optionally save or use the data before navigating
+        console.log("Hospitals:", response.data);
+        // navigate only if successful
+        navigate(`/search?state=${formData.state}&city=${formData.city}`);
+      } catch (err) {
+        console.error("Hospital fetch failed:", err);
+      }
     }
   };
-
   return (
     <Box
       component="form"
