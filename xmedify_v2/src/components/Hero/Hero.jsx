@@ -28,7 +28,6 @@ export default function Hero() {
             <Link to="/search">
               <Button
                 label="Search"
-                
                 variant="contained"
                 size="large"
                 title="Search"
