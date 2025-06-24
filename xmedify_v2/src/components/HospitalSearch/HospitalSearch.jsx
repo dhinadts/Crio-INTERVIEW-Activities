@@ -53,7 +53,7 @@ export default function HospitalSearch() {
     e.preventDefault();
     if (formData.state && formData.city) {
       try {
-        const response = await axios.get(`https://meddata-backend.onrender.com/data/`, {
+        const response = await axios.get(`https://meddata-backend.onrender.com/data`, {
           params: { state: formData.state, city: formData.city },
         });
 
@@ -136,7 +136,7 @@ export default function HospitalSearch() {
         sx={{ py: "15px", px: 8, flexShrink: 0 }}
         disableElevation
       >
-        Search
+                     <button type="submit" id="searchBtn" style={{backgroundColor: "transparent", border: "none" , color: "white"}}>Search</button>
       </Button>
     </Box>
   );
