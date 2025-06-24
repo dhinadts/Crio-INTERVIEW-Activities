@@ -10,7 +10,7 @@ import FooterLink from "./FooterLink";
 export default function Footer() {
   return (
     <Box bgcolor="primary.secondary" pb={3} pt={6}>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
         <Grid
           container
           spacing={{ xs: 4, sm: 4, md: 2 }}
@@ -23,7 +23,7 @@ export default function Footer() {
               height={1}
             >
               <Box src={logo} height={36} alt="Medify" component="img" mb={2} />
-              <Stack direction="row" spacing={1.5}>
+              <Stack direction="row" spacing={1.5} style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                 <Box component="img" src={fb} height={36} />
                 <Box component="img" src={twitter} height={36} />
                 <Box component="img" src={yt} height={36} />

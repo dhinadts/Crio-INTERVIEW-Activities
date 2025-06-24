@@ -10,6 +10,9 @@ import Specialization from "../../components/Sections/Specialization/Specializat
 import Offers from "../../components/Sections/Offers/Offers";
 import NavBar from "../../components/Navbar/Navbar";
 import HeroServices from "../../components/Hero/HeroServices";
+import Footer from "../../components/Footer/Footer";
+import App from "../../App";
+import FooterLink from "../../components/Footer/FooterLink";
 
 export default function Home() {
   return (
@@ -53,6 +56,7 @@ export default function Home() {
       <OurFamilies />
 
       <FAQs />
+      <Footer />
     </Box>
   );
 }
