@@ -5,6 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 export default function SearchBar({ list, filterList }) {
   const [inputText, setInputText] = useState("");
 
+  // Memoizing the filtered list
   const filteredList = useMemo(() => {
     if (!inputText.trim()) return list;
     return list.filter((item) =>
@@ -24,23 +25,15 @@ export default function SearchBar({ list, filterList }) {
       <Stack direction="row" spacing={2}>
         <TextField
           type="text"
-          // name="searchBtn"
           label="Search By Hospital"
           variant="outlined"
           fullWidth
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          slotProps={{
-            input: {
-              maxLength: 100,
-            },
-          }}
+          inputProps={{ maxLength: 100 }} // Limiting input to 100 characters
         />
         <Button
           type="submit"
-          // title="Search"
-          label='Search'
-          id="searchBtn"
           variant="contained"
           size="large"
           startIcon={<SearchIcon />}

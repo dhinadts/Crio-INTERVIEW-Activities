@@ -38,12 +38,14 @@ export default function BookingModal({
   };
 
   const triggerEvent = () => {
+    // Ensure dataLayer is defined
     window.dataLayer = window.dataLayer || [];
 
+    // Function to push the first_visit event to the dataLayer
     function triggerFirstVisitEvent() {
       window.dataLayer.push({
         event: "first_visit",
-        eventDate: new Date().toISOString(),
+        eventDate: new Date().toISOString(), // Optional: track the exact time of the event
       });
     }
 

@@ -1,5 +1,12 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
-import { Grid } from  "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
 import logo from "../../assets/logo.png";
 import fb from "../../assets/fb.png";
 import pinterest from "../../assets/pinterest.png";
@@ -10,20 +17,16 @@ import FooterLink from "./FooterLink";
 export default function Footer() {
   return (
     <Box bgcolor="primary.secondary" pb={3} pt={6}>
-      <Container maxWidth="xl" style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-        <Grid
-          container
-          spacing={{ xs: 4, sm: 4, md: 2 }}
-          columns={{ xs: 4, sm: 4, md: 12 }}
-        >
-          <Grid size={{ xs: 3, sm: 3, md: 3 }}>
+      <Container maxWidth="xl">
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={4.5}>
             <Stack
               alignItems="flex-start"
               justifyContent="space-between"
               height={1}
             >
               <Box src={logo} height={36} alt="Medify" component="img" mb={2} />
-              <Stack direction="row" spacing={1.5} style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+              <Stack direction="row" spacing={1.5}>
                 <Box component="img" src={fb} height={36} />
                 <Box component="img" src={twitter} height={36} />
                 <Box component="img" src={yt} height={36} />
@@ -32,7 +35,7 @@ export default function Footer() {
             </Stack>
           </Grid>
 
-          <Grid size={{ xs: 3, sm: 3, md: 3 }}>
+          <Grid item xs={12} md={2.5}>
             <Stack spacing={2}>
               <FooterLink>About Us</FooterLink>
               <FooterLink>Our Pricing</FooterLink>
@@ -42,7 +45,7 @@ export default function Footer() {
             </Stack>
           </Grid>
 
-          <Grid size={{ xs: 3, sm: 3, md: 3 }}>
+          <Grid item xs={12} md={2.5}>
             <Stack spacing={2}>
               <FooterLink>Orthology</FooterLink>
               <FooterLink>Neurology</FooterLink>
@@ -52,7 +55,7 @@ export default function Footer() {
             </Stack>
           </Grid>
 
-          <Grid size={{ xs: 3, sm: 3, md: 3 }}>
+          <Grid item xs={12} md={2.5}>
             <Stack spacing={2}>
               <FooterLink>About Us</FooterLink>
               <FooterLink>Our Pricing</FooterLink>

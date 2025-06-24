@@ -2,27 +2,22 @@ import mobile from "../../../assets/mobile.jpg";
 import playstore from "../../../assets/playstore.png";
 import apple from "../../../assets/apple-logo.png";
 import arrow from "../../../assets/down-arr.png";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { Grid } from  "@mui/material";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import SmsForm from "./SmsForm";
 
+//download app component to render input details using SmsForm component
 export default function DownloadApp() {
   return (
     <Box
       sx={{ background: "linear-gradient(#E7F0FF 100%, #E8F1FF 47%)", pt: 5 }}
     >
       <Container>
-        <Grid
-          container
-          spacing={{ xs: 2, sm: 2, md: 5 }}
-          columns={{ xs: 4, sm: 8, md: 10 }}
-          alignItems="center"
-        >
-          <Grid size={{ xs: 2, sm: 4, md: 5 }}>
+        <Grid container spacing={3} alignItems="center">
+          <Grid item xs={12} md={5.5}>
             <Box src={mobile} component="img" width={1} height="auto" />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 4, md: 5 }}>
+          <Grid item xs={12} md={6.5}>
             <Box
               position="relative"
               pl={{ xs: "36px", md: "50px" }}
