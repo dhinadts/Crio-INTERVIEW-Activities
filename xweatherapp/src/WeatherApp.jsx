@@ -62,8 +62,8 @@ const WeatherApp = () => {
         <button onClick={fetchWeather} style={{ padding: "10px 20px" }}>
           Search
         </button>
-      </div>
-      {isLoading ? (
+      </div> { weatherData?
+      (isLoading ? (
         <div className="weather-container"><p>Loading data...</p></div>
       ) : (
         <div className="weather-container">
@@ -84,7 +84,7 @@ const WeatherApp = () => {
             <p>{weatherData ? `${weatherData.wind} kph` : "N/A"}</p>
           </div>
         </div>
-      )}
+      )) : <></>}
     </div>
   );
 };
