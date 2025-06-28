@@ -54,6 +54,7 @@ const WeatherApp = () => {
         }}
       >
         <input
+        type="text"
           placeholder="Enter city name"
           value={city_name}
           onChange={(e) => setCity(e.target.value)}
