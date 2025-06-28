@@ -16,8 +16,8 @@ const WeatherApp = () => {
       );
       const data = await response.json();
       if (data.error) {
-        setLoader(false);
         alert(data.error.message);
+        setLoader(false);
         return;
       }
 
@@ -29,10 +29,9 @@ const WeatherApp = () => {
       });
       setLoader(false);
     } catch (error) {
-      setLoader(false);
       console.error(error);
-
       alert("Error fetching weather data");
+      setLoader(false);
     }
   };
 
@@ -44,6 +43,7 @@ const WeatherApp = () => {
         padding: "20px",
       }}
     >
+      {/* Search Bar */}
       <div
         style={{
           display: "flex",
@@ -54,7 +54,7 @@ const WeatherApp = () => {
         }}
       >
         <input
-        type="text"
+          type="text"
           placeholder="Enter city name"
           value={city_name}
           onChange={(e) => setCity(e.target.value)}
@@ -63,29 +63,36 @@ const WeatherApp = () => {
         <button onClick={fetchWeather} style={{ padding: "10px 20px" }}>
           Search
         </button>
-      </div> { weatherData?
-      (isLoading ? (
-        <div className="weather-container"><p>Loading data...</p></div>
-      ) : (
+      </div>
+
+      {/* Loader */}
+      {isLoading && (
+        <div className="weather-container">
+          <p>Loading data...</p>
+        </div>
+      )}
+
+      {/* Weather Cards */}
+      {!isLoading && weatherData && (
         <div className="weather-container">
           <div className="weather-card">
             <p>Temperature</p>
-            <p>{weatherData ? `${weatherData.temp} °C` : "N/A"}</p>
+            <p>{`${weatherData.temp} °C`}</p>
           </div>
           <div className="weather-card">
             <p>Humidity</p>
-            <p>{weatherData ? `${weatherData.humidity} %` : "N/A"}</p>
+            <p>{`${weatherData.humidity} %`}</p>
           </div>
           <div className="weather-card">
             <p>Condition</p>
-            <p>{weatherData ? weatherData.condition : "N/A"}</p>
+            <p>{weatherData.condition}</p>
           </div>
           <div className="weather-card">
             <p>Wind Speed</p>
-            <p>{weatherData ? `${weatherData.wind} kph` : "N/A"}</p>
+            <p>{`${weatherData.wind} kph`}</p>
           </div>
         </div>
-      )) : <></>}
+      )}
     </div>
   );
 };
