@@ -55,7 +55,7 @@ const LoginPage = () => {
           <div style={{ marginBottom: "10px" }}>
             <input
               type="text"
-              name="Username"
+              name="username"
               placeholder="Username"
               value={formData.username}
               onChange={handleChange}
@@ -66,7 +66,7 @@ const LoginPage = () => {
           <div style={{ marginBottom: "10px" }}>
             <input
               type="password"
-              name="Password"
+              name="password"
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
