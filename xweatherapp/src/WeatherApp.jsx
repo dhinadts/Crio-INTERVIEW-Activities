@@ -74,20 +74,20 @@ const WeatherApp = () => {
 
       {/* Weather Cards */}
       {!isLoading && weatherData && (
-        <div className="weather-container">
-          <div className="weather-cards">
+        <div className="weather-cards">
+          <div className="weather-card">
             <p>Temperature</p>
             <p>{`${weatherData.temp} °C`}</p>
           </div>
-          <div className="weather-cards">
+          <div className="weather-card">
             <p>Humidity</p>
             <p>{`${weatherData.humidity} %`}</p>
           </div>
-          <div className="weather-cards">
+          <div className="weather-card">
             <p>Condition</p>
             <p>{weatherData.condition}</p>
           </div>
-          <div className="weather-cards">
+          <div className="weather-card">
             <p>Wind Speed</p>
             <p>{`${weatherData.wind} kph`}</p>
           </div>

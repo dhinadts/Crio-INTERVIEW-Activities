@@ -6,8 +6,16 @@
   gap: 20px;
   flex-wrap: wrap;
 }
-
 .weather-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.weather-card {
   height: 200px;
   width: 180px;
   background-color: white;
