@@ -44,7 +44,7 @@ const LoginPage = () => {
     >
       <h1>Login Page</h1>
       {loggedIn ? (
-        <h2>Welcome User!</h2>
+        <h2>Welcome, user!</h2>
       ) : (
         <form
           onSubmit={handleSubmit}
