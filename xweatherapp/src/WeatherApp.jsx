@@ -16,7 +16,7 @@ const WeatherApp = () => {
       );
       const data = await response.json();
       if (data.error) {
-        alert(data.error.message);
+        alert("Failed to fetch weather data");
         setLoader(false);
         return;
       }
@@ -30,7 +30,7 @@ const WeatherApp = () => {
       setLoader(false);
     } catch (error) {
       console.error(error);
-      alert("Error fetching weather data");
+      alert("Failed to fetch weather data");
       setLoader(false);
     }
   };
