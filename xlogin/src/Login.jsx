@@ -49,12 +49,14 @@ const LoginPage = () => {
         <form
           onSubmit={handleSubmit}
           >
-          {/* <h2>Login</h2> */}
+          
           {error && <p style={{ color: "red" }}>{error}</p>}
 
-          <div style={{ marginBottom: "10px" }}>
+          <div style={{ display:"flex", flexDirection: "row", marginBottom: "10px" }}>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
+              id="username"
               name="username"
               placeholder="Username"
               value={formData.username}
@@ -63,9 +65,11 @@ const LoginPage = () => {
               required
             />
           </div>
-          <div style={{ marginBottom: "10px" }}>
+          <div style={{ marginBottom: "10px", display:"flex", flexDirection: "row", }}>
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
+              id="password"
               name="password"
               placeholder="Password"
               value={formData.password}
