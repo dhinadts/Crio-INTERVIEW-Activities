@@ -121,12 +121,13 @@ export default function SearchHospital() {
       <Button
         type="submit"
         variant="contained"
+        // className='searchBtn'
         size="large"
         startIcon={<SearchIcon />}
         sx={{ py: "15px", px: 8, flexShrink: 0 }}
         disableElevation
       >
-        Search
+                     <button type="submit" id="searchBtn" style={{backgroundColor: "transparent", border: "none" , color: "white"}}>Search</button>
       </Button>
     </Box>
   );
