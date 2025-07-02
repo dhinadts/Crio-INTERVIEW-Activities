@@ -1,22 +1,3 @@
-/* .navbar {
-  background-color: #007bff;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} */
-
-/* .navLinks {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navLinks li {
-    padding: 0 10px;
-  } */
-
 .navlinks a {
   color: #102851;
   text-decoration: none;

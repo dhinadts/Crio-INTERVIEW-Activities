@@ -9,6 +9,7 @@ import SearchHospital from "../components/SearchHospital/SearchHospital";
 import BookingModal from "../components/BookingModal/BookingModal";
 import AutohideSnackbar from "../components/AutohideSnackbar/AutohideSnackbar";
 import NavBar from "../components/NavBar/NavBar";
+// import NavBar from '../components/NavBar/NavBar.jsx';
 
 export default function Search() {
   const [seachParams, setSearchParams] = useSearchParams();
