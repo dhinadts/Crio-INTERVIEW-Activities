@@ -137,7 +137,7 @@ function XModal() {
                   alignItems: "center",
                 }}
               >
-                <button type="submit" className="submit-button">
+                <button type="submit" >
                   Submit
                 </button>
               </div>
