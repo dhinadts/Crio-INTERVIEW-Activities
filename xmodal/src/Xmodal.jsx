@@ -72,7 +72,6 @@ function XModal() {
               className="modal-content"
               onClick={(e) => e.stopPropagation()} // prevent modal close on inner click
             >
-              <h2>Fill the Form</h2>
               <form onSubmit={handleSubmit}>
                 <div>
                   <label>Username:</label>
