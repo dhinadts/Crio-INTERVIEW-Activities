@@ -67,7 +67,7 @@ function XModal() {
       {open && (
         <div className="modal-content">
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Fill the Form</DialogTitle>
+            <DialogTitle>Fill Details</DialogTitle>
             <div
               className="modal-content"
               onClick={(e) => e.stopPropagation()} // prevent modal close on inner click
