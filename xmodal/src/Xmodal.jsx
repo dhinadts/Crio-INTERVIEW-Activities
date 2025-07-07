@@ -23,23 +23,21 @@ function XModal() {
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validatePhone = (phone) => /^\d{10}$/.test(phone);
   const validateDOB = (dob) => {
-    if (!/^\d{2}-\d{2}-\d{4}$/.test(dob)) return false; // dd-mm-yyyy
-
+    if (!/^\d{2}-\d{2}-\d{4}$/.test(dob)) return false;
     const [day, month, year] = dob.split("-").map(Number);
     const enteredDate = new Date(year, month - 1, day);
     const today = new Date();
-    return enteredDate < today; // must be in the past
+    return enteredDate < today;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!validateEmail(formData.email)) {
       alert("Invalid email. Please check your email address.");
       return;
     }
     if (!validatePhone(formData.phone)) {
-      alert("Invalid phone number. Please enter a 10-digit phone number.");
+      alert("Invalid phone number. Please enter a 10-digit phone number.**");
       return;
     }
     if (!validateDOB(formData.dob)) {
@@ -54,30 +52,23 @@ function XModal() {
       dob: "",
       phone: "",
     });
+    // setOpen(false); // close modal after successful submission
   };
 
   return (
     <div className="modal">
       <h1>User Details Modal</h1>
-      <button
-        style={{
-          backgroundColor: "blue",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          padding: "8px 16px",
-          cursor: "pointer",
-        }}
-        onClick={handleClickOpen}
-      >
-        Open Form
-      </button>
+      <button onClick={handleClickOpen}>Open Form</button>
 
       {open && (
-        <div className="modal-content">
+         <div className="modal-content">
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Fill the Form</DialogTitle>
-
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()} // prevent modal close on inner click
+          >
+            <h2>Fill the Form</h2>
             <form onSubmit={handleSubmit}>
               <div>
                 <label>Username:</label>
@@ -118,30 +109,40 @@ function XModal() {
               <div>
                 <label className="modal-content">Date of Birth:</label>
                 <input
-                  type="text"
+                  type="date"
                   id="dob"
                   name="dob"
                   placeholder="dd-mm-yyyy"
                   required
                   style={{ width: "100%", margin: "8px 0" }}
-                  value={formData.dob}
-                  onChange={handleChange}
+                  value={
+                    formData.dob
+                      ? (() => {
+                          const [day, month, year] = formData.dob.split("-");
+                          return `${year}-${month}-${day}`;
+                        })()
+                      : ""
+                  }
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value) {
+                      const [year, month, day] = value.split("-");
+                      const formattedDate = `${day}-${month}-${year}`;
+                      setFormData({
+                        ...formData,
+                        dob: formattedDate,
+                      });
+                    }
+                  }}
                 />
               </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <button type="submit" >
+              <div style={{ textAlign: "center", marginTop: "10px" }}>
+                <button type="submit" className="submit-button">
                   Submit
                 </button>
               </div>
             </form>
+            </div>
           </Dialog>
         </div>
       )}
