@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Dialog, DialogTitle } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 function XModal() {
   const [open, setOpen] = useState(false);
@@ -119,44 +117,32 @@ function XModal() {
               </div>
               <div>
                 <label>Date of Birth:</label>
-                {/* <input></input> */}
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="dd-mm-yyyy"
-                    value={
-                      formData.dob
-                        ? (() => {
-                            const [day, month, year] = formData.dob.split("-");
-                            return new Date(`${year}-${month}-${day}`);
-                          })()
-                        : null
+                <input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  required
+                  style={{ width: "100%", margin: "8px 0" }} // replaces fullWidth and dense margin
+                  value={
+                    formData.dob
+                      ? (() => {
+                          const [day, month, year] = formData.dob.split("-");
+                          return `${year}-${month}-${day}`; // yyyy-mm-dd for input[type=date]
+                        })()
+                      : ""
+                  }
+                  onChange={(e) => {
+                    const value = e.target.value; // yyyy-mm-dd
+                    if (value) {
+                      const [year, month, day] = value.split("-");
+                      const formattedDate = `${day}-${month}-${year}`; // dd-mm-yyyy
+                      setFormData({
+                        ...formData,
+                        dob: formattedDate,
+                      });
                     }
-                    onChange={(newValue) => {
-                      if (newValue) {
-                        const day = String(newValue.getDate()).padStart(2, "0");
-                        const month = String(newValue.getMonth() + 1).padStart(
-                          2,
-                          "0"
-                        );
-                        const year = newValue.getFullYear();
-                        const formattedDate = `${day}-${month}-${year}`; // dd-mm-yyyy
-                        setFormData({
-                          ...formData,
-                          dob: formattedDate,
-                        });
-                      }
-                    }}
-                    slotProps={{
-                      textField: {
-                        id: "dob",
-                        name: "dob",
-                        required: true,
-                        fullWidth: true,
-                        margin: "dense",
-                      },
-                    }}
-                  />
-                </LocalizationProvider>
+                  }}
+                />
               </div>
 
               <div
