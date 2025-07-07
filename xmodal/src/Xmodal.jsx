@@ -20,8 +20,12 @@ function XModal() {
     });
   };
 
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const validatePhone = (phone) => /^\d{10}$/.test(phone);
+  function validateEmail(email) {
+    return email.includes("@") && email.includes(".");
+  }
+  function validatePhone(phone) {
+    return phone.length === 10 && !isNaN(phone);
+  }
   const validateDOB = (dob) => {
     if (!/^\d{2}-\d{2}-\d{4}$/.test(dob)) return false;
     const [day, month, year] = dob.split("-").map(Number);
@@ -61,87 +65,87 @@ function XModal() {
       <button onClick={handleClickOpen}>Open Form</button>
 
       {open && (
-         <div className="modal-content">
+        <div className="modal-content">
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Fill the Form</DialogTitle>
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()} // prevent modal close on inner click
-          >
-            <h2>Fill the Form</h2>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>Username:</label>
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                  style={{ width: "100%", marginBottom: "10px" }}
-                />
-              </div>
-              <div className="modal-content">
-                <label>Email:</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  style={{ width: "100%", marginBottom: "10px" }}
-                />
-              </div>
-              <div className="modal-content">
-                <label>Phone Number:</label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="text"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  style={{ width: "100%", marginBottom: "10px" }}
-                />
-              </div>
-              <div>
-                <label className="modal-content">Date of Birth:</label>
-                <input
-                  type="date"
-                  id="dob"
-                  name="dob"
-                  placeholder="dd-mm-yyyy"
-                  required
-                  style={{ width: "100%", margin: "8px 0" }}
-                  value={
-                    formData.dob
-                      ? (() => {
-                          const [day, month, year] = formData.dob.split("-");
-                          return `${year}-${month}-${day}`;
-                        })()
-                      : ""
-                  }
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value) {
-                      const [year, month, day] = value.split("-");
-                      const formattedDate = `${day}-${month}-${year}`;
-                      setFormData({
-                        ...formData,
-                        dob: formattedDate,
-                      });
+            <div
+              className="modal-content"
+              onClick={(e) => e.stopPropagation()} // prevent modal close on inner click
+            >
+              <h2>Fill the Form</h2>
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <label>Username:</label>
+                  <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                    style={{ width: "100%", marginBottom: "10px" }}
+                  />
+                </div>
+                <div className="modal-content">
+                  <label>Email:</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    style={{ width: "100%", marginBottom: "10px" }}
+                  />
+                </div>
+                <div className="modal-content">
+                  <label>Phone Number:</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    style={{ width: "100%", marginBottom: "10px" }}
+                  />
+                </div>
+                <div>
+                  <label className="modal-content">Date of Birth:</label>
+                  <input
+                    type="date"
+                    id="dob"
+                    name="dob"
+                    placeholder="dd-mm-yyyy"
+                    required
+                    style={{ width: "100%", margin: "8px 0" }}
+                    value={
+                      formData.dob
+                        ? (() => {
+                            const [day, month, year] = formData.dob.split("-");
+                            return `${year}-${month}-${day}`;
+                          })()
+                        : ""
                     }
-                  }}
-                />
-              </div>
-              <div style={{ textAlign: "center", marginTop: "10px" }}>
-                <button type="submit" className="submit-button">
-                  Submit
-                </button>
-              </div>
-            </form>
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value) {
+                        const [year, month, day] = value.split("-");
+                        const formattedDate = `${day}-${month}-${year}`;
+                        setFormData({
+                          ...formData,
+                          dob: formattedDate,
+                        });
+                      }
+                    }}
+                  />
+                </div>
+                <div style={{ textAlign: "center", marginTop: "10px" }}>
+                  <button type="submit" className="submit-button">
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
           </Dialog>
         </div>

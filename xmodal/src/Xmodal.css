@@ -1,11 +1,12 @@
 .modal {
   position: fixed;
-  inset: 0; /* shorthand for top, right, bottom, left: 0 */
+  inset: 0; /* full screen backdrop */
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1300; /* MUI Dialog default z-index for consistency */
+  z-index: 1300; 
+  cursor: pointer; 
 }
 
 .modal-content {
@@ -21,8 +22,8 @@
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  cursor: default; 
 }
-
 .modal-content h2 {
   margin-top: 0;
   font-size: 1.5rem;
