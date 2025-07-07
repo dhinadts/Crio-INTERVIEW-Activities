@@ -91,7 +91,7 @@ function XModal() {
                   style={{ width: "100%", marginBottom: "10px" }}
                 />
               </div>
-              <div>
+              <div className="modal-content">
                 <label>Email:</label>
                 <input
                   id="email"
@@ -103,7 +103,7 @@ function XModal() {
                   style={{ width: "100%", marginBottom: "10px" }}
                 />
               </div>
-              <div>
+              <div className="modal-content">
                 <label>Phone Number:</label>
                 <input
                   id="phone"
@@ -116,32 +116,16 @@ function XModal() {
                 />
               </div>
               <div>
-                <label>Date of Birth:</label>
+                <label className="modal-content">Date of Birth:</label>
                 <input
-                  type="date"
+                  type="text"
                   id="dob"
                   name="dob"
+                  placeholder="dd-mm-yyyy"
                   required
-                  style={{ width: "100%", margin: "8px 0" }} // replaces fullWidth and dense margin
-                  value={
-                    formData.dob
-                      ? (() => {
-                          const [day, month, year] = formData.dob.split("-");
-                          return `${year}-${month}-${day}`; // yyyy-mm-dd for input[type=date]
-                        })()
-                      : ""
-                  }
-                  onChange={(e) => {
-                    const value = e.target.value; // yyyy-mm-dd
-                    if (value) {
-                      const [year, month, day] = value.split("-");
-                      const formattedDate = `${day}-${month}-${year}`; // dd-mm-yyyy
-                      setFormData({
-                        ...formData,
-                        dob: formattedDate,
-                      });
-                    }
-                  }}
+                  style={{ width: "100%", margin: "8px 0" }}
+                  value={formData.dob}
+                  onChange={handleChange}
                 />
               </div>
 
