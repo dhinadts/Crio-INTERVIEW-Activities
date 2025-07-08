@@ -65,8 +65,10 @@ function XModal() {
       <button onClick={handleClickOpen}>Open Form</button>
 
       {open && (
-        <div className="modal-content">
-          <div open={open} onClose={handleClose} disableBackdropClick>
+        <div className="modal">
+          <div 
+          className="modal-content"
+          open={open} onClose={handleClose} disableBackdropClick>
             <h2>Fill Details</h2>
             <div
               className="modal-content"
