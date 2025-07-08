@@ -66,7 +66,7 @@ function XModal() {
 
       {open && (
         <div className="modal-content">
-          <Dialog open={open} onClose={handleClose}>
+          <Dialog open={open} onClose={handleClose} disableBackdropClick >
             <DialogTitle>Fill Details</DialogTitle>
             <div
               className="modal-content"
