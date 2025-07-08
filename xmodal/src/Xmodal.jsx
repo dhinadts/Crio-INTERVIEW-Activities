@@ -51,7 +51,6 @@ function XModal() {
 
     console.log("Form Submitted:", formData);
 
-    // ✅ Clear data but keep modal open for further input
     setFormData({
       username: "",
       email: "",
