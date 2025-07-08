@@ -26,13 +26,13 @@ function XModal() {
   function validatePhone(phone) {
     return phone.length === 10 && !isNaN(phone);
   }
-  const validateDOB = (dob) => {
+  function validateDOB(dob) {
     if (!/^\d{2}-\d{2}-\d{4}$/.test(dob)) return false;
     const [day, month, year] = dob.split("-").map(Number);
     const enteredDate = new Date(year, month - 1, day);
     const today = new Date();
     return enteredDate < today;
-  };
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,8 +66,8 @@ function XModal() {
 
       {open && (
         <div className="modal-content">
-          <Dialog open={open} onClose={handleClose} disableBackdropClick >
-            <DialogTitle>Fill Details</DialogTitle>
+          <div open={open} onClose={handleClose} disableBackdropClick>
+            <h2>Fill Details</h2>
             <div
               className="modal-content"
               onClick={(e) => e.stopPropagation()} // prevent modal close on inner click
@@ -110,34 +110,24 @@ function XModal() {
                   />
                 </div>
                 <div>
-                  <label className="modal-content">Date of Birth:</label>
-                  <input
-                    type="date"
-                    id="dob"
-                    name="dob"
-                    placeholder="dd-mm-yyyy"
-                    required
-                    style={{ width: "100%", margin: "8px 0" }}
-                    value={
-                      formData.dob
-                        ? (() => {
-                            const [day, month, year] = formData.dob.split("-");
-                            return `${year}-${month}-${day}`;
-                          })()
-                        : ""
-                    }
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      if (value) {
-                        const [year, month, day] = value.split("-");
-                        const formattedDate = `${day}-${month}-${year}`;
+                  <div>
+                    <label>Date of Birth:</label>
+                    <input
+                      type="text"
+                      id="dob"
+                      name="dob"
+                      placeholder="dd-mm-yyyy"
+                      required
+                      style={{ width: "100%", margin: "8px 0" }}
+                      value={formData.dob}
+                      onChange={(e) => {
                         setFormData({
                           ...formData,
-                          dob: formattedDate,
+                          dob: e.target.value,
                         });
-                      }
-                    }}
-                  />
+                      }}
+                    />
+                  </div>
                 </div>
                 <div style={{ textAlign: "center", marginTop: "10px" }}>
                   <button type="submit" className="submit-button">
@@ -146,7 +136,7 @@ function XModal() {
                 </div>
               </form>
             </div>
-          </Dialog>
+          </div>
         </div>
       )}
     </div>
