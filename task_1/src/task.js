@@ -30,15 +30,16 @@ const FetchJokeCard = () => {
           style={styles.button}
           disabled={loading}
         >
-          {loading ? "Fetching..." : error ? "Try again" : "Fetch joke"}
+          {loading ? "Fetching..." : /* error ? "Try again" : */ "Fetch joke"}
         </button>
 
         <p style={styles.jokeText}>
           {error ? (
             <>
-              <strong>Could not fetch a joke. Try again.</strong>
-              <br />
-              <br />
+              <p style={{ color: 'red' }}>Could not fetch a joke. Try again.</p>
+
+
+              <span style={styles.underlineText}>Try again</span>
             </>
           ) : joke ? (
             <>
@@ -56,6 +57,7 @@ const FetchJokeCard = () => {
   );
 };
 
+// Inline styles
 const styles = {
   container: {
     width: "100%",
@@ -98,6 +100,11 @@ const styles = {
     fontSize: "15px",
     color: "#555",
     lineHeight: "1.5",
+  },
+  underlineText: {
+    textDecoration: "underline",
+    color: "#0d6efd",
+    cursor: "pointer",
   },
 };
 
