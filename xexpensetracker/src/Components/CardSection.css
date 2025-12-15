@@ -1,0 +1,77 @@
+.CardSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  color: white;
+  height: auto;
+  flex-wrap: wrap; /* Enables wrapping on smaller screens */
+}
+
+.card-container {
+  flex: 1;
+  min-width: 250px;
+  max-width: 32%;
+  background-color: grey;
+  border: 1px solid grey;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: 250px;
+}
+.buttonClass {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.chart-card-container {
+  flex: 1;
+  min-width: 250px;
+  max-width: 32%;
+  /* background-color: grey; */
+  /* border: 1px solid grey; */
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: 250px;
+}
+
+/* .card-details {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+} */
+
+.chart-Area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  /* background-color: #333; */
+  padding: 20px;
+  /* border-radius: 15px; */
+}
+
+.ItemList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+  margin-top: 10px;
+}

@@ -1,0 +1,168 @@
+.TransactionSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  background-color: #333;
+
+  color: white;
+}
+
+.trans-card-container {
+  width: 60vw;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.trans-card-container-second {
+  width: 25vw;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.section-heading {
+  color: white;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+
+.list-tile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 12px 16px; */
+  /* background: white; */
+  /* border-radius: 12px; */
+  /* box-shadow: 0 1px 4px rgba(0,0,0,0.1); */
+  /* margin-bottom: 12px; */
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.text-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: self-start;
+  flex-shrink: true;
+}
+
+.list-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.list-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.amount {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+.content {
+  color: black;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.trailing button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.topExpenses {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: black;
+}
+
+.codeIndication {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.codeIndication p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.codeIndication div {
+  width: 10rem;
+  height: 20px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+/* Specific color indicators */
+.codeIndication:nth-child(1) div {
+  background-color: #ff7043; /* Food */
+}
+
+.codeIndication:nth-child(2) div {
+  background-color: #42a5f5; /* Entertainment */
+}
+
+.codeIndication:nth-child(3) div {
+  background-color: #66bb6a; /* Travel */
+}
+@media (max-width: 768px) {
+  .TransactionSection {
+    flex-direction: column;
+  }
+  .trans-card-container, .trans-card-container-second {
+    width: 100%;
+  }
+}
