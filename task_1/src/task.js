@@ -3,15 +3,18 @@ import React, { useState } from "react";
 const FetchJokeCard = () => {
   const [joke, setJoke] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchJoke = async () => {
     setLoading(true);
+    setError(false);
     try {
       const res = await fetch("https://official-joke-api.appspot.com/random_joke");
       const data = await res.json();
       setJoke(`${data.setup} — ${data.punchline}`);
     } catch (error) {
-      setJoke("Failed to fetch joke.");
+      setError(true);
+      setJoke("Could not fetch a joke. Try again.");
     }
     setLoading(false);
   };
@@ -23,10 +26,27 @@ const FetchJokeCard = () => {
         <p style={styles.subtitle}>Click the button to fetch a fresh one.</p>
 
         <button onClick={fetchJoke} style={styles.button}>
-          {loading ? "Fetching..." : "Fetch joke"}
+          {loading ? "Fetching..." : error ? "Try again" : "Fetch joke"}
         </button>
 
-        <p style={styles.jokeText}>{joke || "No joke yet."}</p>
+        <p style={styles.jokeText}>
+          {error ? (
+            <>
+              <strong>Could not fetch a joke. Try again.</strong>
+              <br />
+              <br />
+            </>
+          ) : joke ? (
+            <>
+              <strong>{joke.split(" — ")[0]}</strong>
+              <br />
+              <br />
+              {joke.split(" — ")[1]}
+            </>
+          ) : (
+            "No joke yet."
+          )}
+        </p>
       </div>
     </div>
   );
@@ -74,6 +94,7 @@ const styles = {
     marginTop: "20px",
     fontSize: "15px",
     color: "#555",
+    lineHeight: "1.5",
   },
 };
 
