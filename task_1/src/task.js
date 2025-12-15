@@ -14,7 +14,7 @@ const FetchJokeCard = () => {
       setJoke(`${data.setup} — ${data.punchline}`);
     } catch (error) {
       setError(true);
-      setJoke("Could not fetch a joke. Try again.");
+      setJoke("");
     }
     setLoading(false);
   };
@@ -30,13 +30,11 @@ const FetchJokeCard = () => {
           style={styles.button}
           disabled={loading}
         >
-          {loading ? "Fetching..." : /* error ? "Try again" : */ "Fetch joke"}
+          {loading ? "Fetching..." : "Fetch joke"}
         </button>
 
         <p style={styles.jokeText}>
-          {error ? (
-            "Could not fetch a joke. Try again."
-          ) : joke ? (
+          {error ? "Could not fetch a joke. Try again." : joke ? (
             <>
               <strong>{joke.split(" — ")[0]}</strong>
               <br />
