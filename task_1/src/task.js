@@ -10,6 +10,11 @@ const FetchJokeCard = () => {
     setError(false);
     try {
       const res = await fetch("https://official-joke-api.appspot.com/random_joke");
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
       const data = await res.json();
       setJoke({
         setup: data.setup || "",
@@ -17,7 +22,7 @@ const FetchJokeCard = () => {
       });
     } catch (error) {
       setError(true);
-      setJoke({ setup: "Could not fetch a joke. Try again.", punchline: "" });
+      setJoke({ setup: "", punchline: "" });
     }
     setLoading(false);
   };
@@ -33,10 +38,10 @@ const FetchJokeCard = () => {
           style={styles.button}
           disabled={loading}
         >
-          {loading ? "Fetching..." : "Fetch joke"}
+          {loading ? "Fetching..." : error ? "Try again" : "Fetch joke"}
         </button>
 
-        <p style={styles.jokeText}>
+        <p style={styles.jokeText} data-testid="joke-text">
           {error ? (
             "Could not fetch a joke. Try again."
           ) : joke.setup ? (
