@@ -19,7 +19,7 @@ const FetchJokeCard = () => {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h2 style={styles.title}>Random Joke</h2>
+        <h1 style={styles.title}>Random Joke</h1>
         <p style={styles.subtitle}>Click the button to fetch a fresh one.</p>
 
         <button onClick={fetchJoke} style={styles.button}>
