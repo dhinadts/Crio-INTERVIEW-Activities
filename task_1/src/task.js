@@ -37,9 +37,7 @@ const FetchJokeCard = () => {
           {error ? (
             <>
               <p style={{ color: 'red' }}>Could not fetch a joke. Try again.</p>
-
-
-              <span style={styles.underlineText}>Try again</span>
+              <span onClick={fetchJoke} style={styles.underlineText}>Try again</span>
             </>
           ) : joke ? (
             <>
