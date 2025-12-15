@@ -17,7 +17,7 @@ const FetchJokeCard = () => {
       });
     } catch (error) {
       setError(true);
-      setJoke({ setup: "", punchline: "" });
+      setJoke({ setup: "Could not fetch a joke. Try again.", punchline: "" });
     }
     setLoading(false);
   };
