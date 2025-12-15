@@ -23,7 +23,7 @@ const FetchJokeCard = () => {
         <p style={styles.subtitle}>Click the button to fetch a fresh one.</p>
 
         <button onClick={fetchJoke} style={styles.button}>
-          {loading ? "Fetching..." : "Fetch Joke"}
+          {loading ? "Fetching..." : "Fetch joke"}
         </button>
 
         <p style={styles.jokeText}>{joke || "No joke yet."}</p>
