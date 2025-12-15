@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const FetchJokeCard = () => {
-  const [joke, setJoke] = useState("");
+  const [joke, setJoke] = useState({ setup: "", punchline: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -11,10 +11,13 @@ const FetchJokeCard = () => {
     try {
       const res = await fetch("https://official-joke-api.appspot.com/random_joke");
       const data = await res.json();
-      setJoke(`${data.setup} — ${data.punchline}`);
+      setJoke({
+        setup: data.setup || "",
+        punchline: data.punchline || ""
+      });
     } catch (error) {
       setError(true);
-      setJoke("");
+      setJoke({ setup: "", punchline: "" });
     }
     setLoading(false);
   };
@@ -34,19 +37,20 @@ const FetchJokeCard = () => {
         </button>
 
         <p style={styles.jokeText}>
-          {error ? "Could not fetch a joke. Try again." : joke ? (
+          {error ? (
+            "Could not fetch a joke. Try again."
+          ) : joke.setup ? (
             <>
-              <strong>{joke.split(" — ")[0]}</strong>
+              <strong>{joke.setup}</strong>
               <br />
               <br />
-              {joke.split(" — ")[1]}
+              {joke.punchline}
             </>
           ) : (
             "No joke yet."
           )}
         </p>
 
-        { }
         {error && (
           <span
             style={styles.underlineText}
