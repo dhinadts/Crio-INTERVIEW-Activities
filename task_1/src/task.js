@@ -35,10 +35,7 @@ const FetchJokeCard = () => {
 
         <p style={styles.jokeText}>
           {error ? (
-            <>
-              <p style={{ color: 'red' }}>Could not fetch a joke. Try again.</p>
-              <span onClick={fetchJoke} style={styles.underlineText}>Try again</span>
-            </>
+            "Could not fetch a joke. Try again."
           ) : joke ? (
             <>
               <strong>{joke.split(" — ")[0]}</strong>
@@ -50,12 +47,21 @@ const FetchJokeCard = () => {
             "No joke yet."
           )}
         </p>
+
+        { }
+        {error && (
+          <span
+            style={styles.underlineText}
+            onClick={fetchJoke}
+          >
+            Try again
+          </span>
+        )}
       </div>
     </div>
   );
 };
 
-// Inline styles
 const styles = {
   container: {
     width: "100%",
@@ -98,11 +104,15 @@ const styles = {
     fontSize: "15px",
     color: "#555",
     lineHeight: "1.5",
+    minHeight: "60px",
   },
   underlineText: {
+    display: "block",
     textDecoration: "underline",
     color: "#0d6efd",
     cursor: "pointer",
+    marginTop: "10px",
+    fontSize: "15px",
   },
 };
 
