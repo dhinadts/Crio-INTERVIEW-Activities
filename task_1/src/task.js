@@ -14,7 +14,7 @@ const FetchJokeCard = () => {
       setJoke(`${data.setup} — ${data.punchline}`);
     } catch (error) {
       setError(true);
-      setJoke("Could not fetch a joke. Try again.");
+      setJoke("Could not fetch a joke, try again.");
     }
     setLoading(false);
   };
@@ -25,14 +25,18 @@ const FetchJokeCard = () => {
         <h1 style={styles.title}>Random Joke</h1>
         <p style={styles.subtitle}>Click the button to fetch a fresh one.</p>
 
-        <button onClick={fetchJoke} style={styles.button}>
+        <button
+          onClick={fetchJoke}
+          style={styles.button}
+          disabled={loading}
+        >
           {loading ? "Fetching..." : error ? "Try again" : "Fetch joke"}
         </button>
 
         <p style={styles.jokeText}>
           {error ? (
             <>
-              <strong>Could not fetch a joke. Try again.</strong>
+              <strong>Could not fetch a joke, try again.</strong>
               <br />
               <br />
             </>
@@ -52,7 +56,6 @@ const FetchJokeCard = () => {
   );
 };
 
-// Inline styles
 const styles = {
   container: {
     width: "100%",
