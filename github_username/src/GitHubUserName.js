@@ -52,6 +52,7 @@ export default function GitHubUserFinder() {
                 <input
                     type="text"
                     name="username"
+                    placeholder="e.g. torvaids, gaearon, octocat"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     onKeyDown={handleKeyDown}
