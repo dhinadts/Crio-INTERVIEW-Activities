@@ -65,7 +65,7 @@ export default function GitHubUserFinder() {
                 {loading && <p>Loading...</p>}
 
                 {/* User Details */}
-                {user && (
+                {user ? (
                     <div>
                         <img
                             src={user.avatar_url}
@@ -76,7 +76,7 @@ export default function GitHubUserFinder() {
                         <p>@{user.login}</p>
                         {user.location && <p>{user.location}</p>}
                     </div>
-                )}
+                ) : (!error && <p>No User yet. Try searching for "octocat"</p>)}
             </div>
         </div>
     );
