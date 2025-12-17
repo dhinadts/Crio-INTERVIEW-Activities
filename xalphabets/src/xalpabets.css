@@ -1,0 +1,26 @@
+.container {
+    text-align: center;
+    padding: 40px;
+}
+
+.output {
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin: 20px auto;
+    width: 300px;
+    min-height: 24px;
+}
+
+.keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.key {
+    padding: 10px 14px;
+    font-size: 16px;
+    cursor: pointer;
+}
