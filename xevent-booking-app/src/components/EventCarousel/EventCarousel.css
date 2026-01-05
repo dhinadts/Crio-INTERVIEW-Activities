@@ -1,0 +1,23 @@
+/* Center pagination */
+.swiper-pagination {
+    position: relative;
+    margin-top: 20px;
+}
+
+/* Force exactly 4 dots */
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #cfd8dc;
+    opacity: 1;
+    margin: 0 6px !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: #1976d2;
+}
+
+/* Hide extra bullets if any */
+.swiper-pagination-bullet:nth-child(n+5) {
+    display: none;
+}
