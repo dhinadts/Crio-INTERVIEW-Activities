@@ -23,9 +23,7 @@ export default function NavBar() {
     <header>
       <Box p={1} bgcolor="primary.main">
         <Typography fontSize={14} textAlign="center" color="#fff">
-          The health and well-being of our patients and their health care team
-          will always be our priority, so we follow the best practices for
-          cleanliness.
+          Stay updated with the latest events and maximize your experiance with our platform.
         </Typography>
       </Box>
 
