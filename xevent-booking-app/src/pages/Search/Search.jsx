@@ -18,18 +18,16 @@ export default function Search() {
 
   // Fetch events
   useEffect(() => {
-    const getEvents = async () => {
-      if (!state || !city) return;
+    if (!state || !city) return;
 
+    const getEvents = async () => {
       setIsLoading(true);
       setEvents([]);
 
       try {
         const response = await axios.get(
-          "https://eventdata.onrender.com/events",
-          {
-            params: { state, city },
-          }
+          `/search?state=${state}&city=${city}`,
+          // { params: { state, city } }
         );
         setEvents(response.data);
       } catch (err) {
@@ -41,6 +39,7 @@ export default function Search() {
 
     getEvents();
   }, [state, city]);
+
 
   // Sync URL params
   useEffect(() => {

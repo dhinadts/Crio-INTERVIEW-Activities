@@ -2,17 +2,9 @@ import { Container, Box, Stack } from "@mui/material";
 import Hero from "../../components/Hero/Hero";
 import HospitalSearch from "../../components/HospitalSearch/HospitalSearch";
 import FAQs from "../../components/Sections/FAQs/FAQs";
-import OurFamilies from "../../components/Sections/OurFamilies/OurFamilies";
-import Blogs from "../../components/Sections/Blogs/Blogs";
-import PatientCaring from "../../components/Sections/PatientCaring/PatientCaring";
-import Specialists from "../../components/Sections/Specialists/Specialists";
-import Specialization from "../../components/Sections/Specialization/Specialization";
-import Offers from "../../components/Sections/Offers/Offers";
 import NavBar from "../../components/Navbar/Navbar";
 import HeroServices from "../../components/Hero/HeroServices";
 import Footer from "../../components/Footer/Footer";
-import App from "../../App";
-import FooterLink from "../../components/Footer/FooterLink";
 import EventCarousel from "../../components/EventCarousel/EventCarousel"
 import EventTracking from "../../components/EventTracking/EventTracking"
 import LatestNews from "../../components/Blogs/LatestNews"
