@@ -3,15 +3,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import EventCard from "../../components/HospitalCard/HospitalCard";
-import EventSearch from "../../components/HospitalSearch/HospitalSearch";
-// src\components\HospitalSearch\HospitalSearch.jsx
+import HospitalCard from "../../components/HospitalCard/HospitalCard"; // Updated import
+import HospitalSearch from "../../components/HospitalSearch/HospitalSearch";
 import NavBar from "../../components/Navbar/Navbar";
-
 import tickIcon from "../../assets/event_booked.png";
-
-
-
 import cta from "../../assets/singer_2.png";
 
 export default function Search() {
@@ -82,7 +77,7 @@ export default function Search() {
               boxShadow: "0 0 10px rgba(0,0,0,0.1)",
             }}
           >
-            <EventSearch />
+            <HospitalSearch />
           </Container>
         </Box>
 
@@ -90,8 +85,8 @@ export default function Search() {
         <Container maxWidth="xl" sx={{ pt: 8, pb: 10 }}>
           {events.length > 0 && (
             <Box sx={{ mb: 3 }}>
-              {/* FIXED: Changed from h1 to Typography */}
-              <Typography variant="h1" fontSize={24} fontWeight={500} mb={2}>
+              {/* FIXED: Use component="h1" to create actual h1 element */}
+              <Typography component="h1" fontSize={24} fontWeight={500} mb={2}>
                 {`${events.length} events available in `}
                 <span style={{ textTransform: "capitalize" }}>
                   {city?.toLowerCase()}
@@ -111,12 +106,18 @@ export default function Search() {
             {/* Event Cards */}
             <Stack spacing={3} width={{ xs: "100%", md: "calc(100% - 384px)" }}>
               {events.map((event, index) => (
-                <EventCard key={index} event={event} />
+                <HospitalCard key={index} event={event} />
               ))}
 
               {isLoading && (
                 <Typography bgcolor="#fff" p={3} borderRadius={2}>
                   Loading events...
+                </Typography>
+              )}
+
+              {events.length === 0 && !isLoading && state && city && (
+                <Typography bgcolor="#fff" p={3} borderRadius={2}>
+                  No events found in {city}, {state}
                 </Typography>
               )}
 

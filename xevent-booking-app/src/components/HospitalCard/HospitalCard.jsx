@@ -3,7 +3,11 @@ import { useState } from "react";
 import { Box, Button, Divider, Stack, Typography, Modal, Radio, RadioGroup, FormControlLabel, FormControl } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 
-export default function EventCard({ event }) {
+// CHANGE FROM EventCard to HospitalCard
+export default function HospitalCard({ event, details }) {
+  // Use event prop if available, otherwise use details prop
+  const eventData = event || details || {};
+
   const [open, setOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
 
@@ -18,10 +22,11 @@ export default function EventCard({ event }) {
   const handleBookEvent = () => {
     // Save booking to localStorage
     const bookingData = {
-      ...event,
+      ...eventData,
+      eventName: eventData.eventName || eventData["Hospital Name"] || "Event",
       bookingDate: new Date().toISOString(),
       bookingTime: selectedTime,
-      bookingEmail: "user@example.com" // You should get this from user input
+      bookingEmail: "user@example.com"
     };
 
     const existingBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
@@ -65,15 +70,15 @@ export default function EventCard({ event }) {
               fontSize={20}
               mb={1}
             >
-              {event.eventName}
+              {eventData.eventName || eventData["Hospital Name"] || "Event Name"}
             </Typography>
 
             <Typography color="#414146" fontSize={14} fontWeight={600}>
-              {event.city}, {event.state}
+              {eventData.city || "City"}, {eventData.state || "State"}
             </Typography>
 
             <Typography fontSize={14} mt={0.5} mb={1}>
-              {event.address}
+              {eventData.address || "Address not available"}
             </Typography>
 
             <Divider sx={{ borderStyle: "dashed", my: 2 }} />
@@ -82,7 +87,7 @@ export default function EventCard({ event }) {
             <Stack direction="row" alignItems="center" spacing={1}>
               <StarIcon sx={{ color: "#4CAF50", fontSize: 20 }} />
               <Typography fontWeight={700} color="#4CAF50">
-                {event.rating}
+                {eventData.rating || 4}
               </Typography>
             </Stack>
           </Box>
@@ -124,7 +129,7 @@ export default function EventCard({ event }) {
           borderRadius: 2,
         }}>
           <Typography variant="h6" mb={2}>
-            Select Time for {event.eventName}
+            Select Time for {eventData.eventName || eventData["Hospital Name"]}
           </Typography>
 
           <Typography mb={1}>Today</Typography>

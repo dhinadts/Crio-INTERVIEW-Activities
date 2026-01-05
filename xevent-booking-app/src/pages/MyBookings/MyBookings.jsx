@@ -6,7 +6,8 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import NavBar from "../../components/Navbar/Navbar";
 
 
-let cta = "";
+import cta from "../../assets/singer_2.png";
+
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
