@@ -11,7 +11,7 @@ export default function HospitalCard({ event, details }) {
   const [open, setOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
 
-  const timeSlots = ["Morning", "Afternoon", "Evening"];
+  const timeSlots = ["Today", "Morning", "Afternoon", "Evening"];
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {

@@ -88,8 +88,8 @@ export default function Search() {
               {/* FIXED: Use component="h1" to create actual h1 element */}
               <Typography component="h1" fontSize={24} fontWeight={500} mb={2}>
                 {`${events.length} events available in `}
-                <span style={{ textTransform: "capitalize" }}>
-                  {city?.toLowerCase()}
+                <span /*  style={{ textTransform: "capitalize" }} */>
+                  {city}
                 </span>
               </Typography>
 
