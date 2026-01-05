@@ -76,13 +76,15 @@ export default function MyBookings() {
               mr="24px"
             >
               {filteredBookings.length > 0 &&
-                filteredBookings.map((hospital) => (
+
+                filteredBookings.map((hospital, index) => (
                   <HospitalCard
-                    key={hospital["Hospital Name"]}
+                    key={`${hospital.eventName}-${index}`}
                     details={hospital}
-                    booking={true}
+                    booking
                   />
-                ))}
+                ))
+              }
 
               {filteredBookings.length == 0 && (
                 <Typography variant="h3" bgcolor="#fff" p={3} borderRadius={2}>

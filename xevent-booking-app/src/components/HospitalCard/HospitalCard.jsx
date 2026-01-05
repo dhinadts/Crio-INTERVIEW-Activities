@@ -70,7 +70,8 @@ export default function HospitalCard({ event, details }) {
               fontSize={20}
               mb={1}
             >
-              {eventData.eventName || eventData["Hospital Name"] || "Event Name"}
+              {eventData.eventName}
+              {/*  || eventData["Hospital Name"] || "Event Name"} */}
             </Typography>
 
             <Typography color="#414146" fontSize={14} fontWeight={600}>
@@ -104,11 +105,10 @@ export default function HospitalCard({ event, details }) {
               Available Today
             </Typography>
 
-            <Button
-              variant="contained"
+
+            <Button data-testid="book-event-btn" variant="contained"
               disableElevation
-              onClick={handleOpen}
-            >
+              onClick={handleOpen}>
               Book FREE Event
             </Button>
           </Stack>
@@ -141,10 +141,13 @@ export default function HospitalCard({ event, details }) {
             >
               {timeSlots.map((slot) => (
                 <FormControlLabel
-                  key={slot}
+                  label={<span>{slot}</span>}
                   value={slot}
                   control={<Radio />}
-                  label={slot}
+                  key={slot}
+                // value={slot}
+                // control={<Radio />}
+                // label={slot}
                 />
               ))}
             </RadioGroup>

@@ -51,20 +51,25 @@ export default function HospitalSearch() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.state && formData.city) {
-      try {
-        const response = await axios.get(`https://eventdata.onrender.com/events`, {
-          params: { state: formData.state, city: formData.city },
-        });
+    e.preventDefault();
 
-        // Optionally save or use the data before navigating
-        console.log("Events:", response.data);
-        // navigate only if successful
-        navigate(`/search?state=${formData.state}&city=${formData.city}`);
-      } catch (err) {
-        console.error("Event fetch failed:", err);
-      }
+    if (formData.state && formData.city) {
+      navigate(`/search?state=${formData.state}&city=${formData.city}`);
     }
+    /*  if (formData.state && formData.city) {
+       try {
+         const response = await axios.get(`https://eventdata.onrender.com/events`, {
+           params: { state: formData.state, city: formData.city },
+         });
+ 
+         // Optionally save or use the data before navigating
+         console.log("Events:", response.data);
+         // navigate only if successful
+         navigate(`/search?state=${formData.state}&city=${formData.city}`);
+       } catch (err) {
+         console.error("Event fetch failed:", err);
+       }
+     } */
   };
   return (
     <Box
