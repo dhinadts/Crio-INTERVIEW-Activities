@@ -1,17 +1,43 @@
 import eventIcon from "../../assets/event_booked.png";
-import { useState } from "react";
-import { Box, Button, Divider, Stack, Typography, Modal, Radio, RadioGroup, FormControlLabel, FormControl } from "@mui/material";
+import { useState, useEffect } from "react";
+import {
+  Box, Button, Divider, Stack, Typography, Modal,
+  Radio, RadioGroup, FormControlLabel, FormControl
+} from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 export default function HospitalCard({ event, details }) {
-  // Use event prop if available, otherwise use details prop
   const eventData = event || details || {};
 
-  // Extract event name - check multiple possible field names
-  const eventName = eventData.eventName || eventData["Hospital Name"] || "Event";
+  // Extract event name from API response
+  const eventName = eventData["Event Name"] || eventData.eventName || eventData["Hospital Name"] || "Event";
 
   const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [availableDates, setAvailableDates] = useState([]);
+
+  // Generate dates for the next 7 days
+  useEffect(() => {
+    const dates = [];
+    const today = new Date();
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+
+      dates.push({
+        date: date.toISOString().split('T')[0],
+        display: i === 0 ? "Today" :
+          i === 1 ? "Tomorrow" :
+            date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+      });
+    }
+
+    setAvailableDates(dates);
+    setSelectedDate(dates[0].date); // Set today as default
+  }, []);
 
   const timeSlots = ["Morning", "Afternoon", "Evening"];
 
@@ -22,11 +48,24 @@ export default function HospitalCard({ event, details }) {
   };
 
   const handleBookEvent = () => {
+    if (!selectedDate || !selectedTime) {
+      alert("Please select both date and time");
+      return;
+    }
+
+    // Format date for display
+    const selectedDateObj = availableDates.find(d => d.date === selectedDate);
+    const displayDate = selectedDateObj ? selectedDateObj.display : selectedDate;
+
     // Save booking to localStorage
     const bookingData = {
-      ...eventData,
       eventName: eventName,
+      rating: eventData["Overall Rating"] || eventData.rating || 4,
+      address: eventData.Address || eventData.address || "",
+      city: eventData.City || eventData.city || "",
+      state: eventData.State || eventData.state || "",
       bookingDate: new Date().toISOString(),
+      bookingDisplayDate: displayDate,
       bookingTime: selectedTime,
       bookingEmail: "user@example.com"
     };
@@ -36,7 +75,7 @@ export default function HospitalCard({ event, details }) {
     localStorage.setItem('bookings', JSON.stringify(existingBookings));
 
     handleClose();
-    alert("Event booked successfully!");
+    alert(`Successfully booked ${eventName} for ${displayDate} - ${selectedTime}`);
   };
 
   return (
@@ -77,11 +116,11 @@ export default function HospitalCard({ event, details }) {
             </Typography>
 
             <Typography color="#414146" fontSize={14} fontWeight={600}>
-              {eventData.city || "City"}, {eventData.state || "State"}
+              {eventData.City || eventData.city || "City"}, {eventData.State || eventData.state || "State"}
             </Typography>
 
             <Typography fontSize={14} mt={0.5} mb={1}>
-              {eventData.address || "Address not available"}
+              {eventData.Address || eventData.address || "Address not available"}
             </Typography>
 
             <Divider sx={{ borderStyle: "dashed", my: 2 }} />
@@ -90,30 +129,38 @@ export default function HospitalCard({ event, details }) {
             <Stack direction="row" alignItems="center" spacing={1}>
               <StarIcon sx={{ color: "#4CAF50", fontSize: 20 }} />
               <Typography fontWeight={700} color="#4CAF50">
-                {eventData.rating || 4}
+                {eventData["Overall Rating"] || eventData.rating || 4}
+              </Typography>
+              <Typography fontSize={14} color="#666">
+                ({Math.floor(Math.random() * 100) + 50} reviews)
               </Typography>
             </Stack>
           </Box>
 
           {/* Action */}
-          <Stack justifyContent="flex-end">
+          <Stack justifyContent="flex-end" alignItems={{ xs: "flex-start", md: "flex-end" }}>
             <Typography
-              textAlign="center"
+              textAlign={{ xs: "left", md: "center" }}
               color="primary.green"
               fontSize={14}
               fontWeight={500}
               mb={1}
             >
-              Available Today
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                <CalendarTodayIcon fontSize="small" />
+                <span>Available for next 7 days</span>
+              </Stack>
             </Typography>
 
-            {/* FIXED: Use Button component with data-testid for Cypress tests */}
             <Button
               variant="contained"
               data-testid="book-event-btn"
               onClick={handleOpen}
               disableElevation
-              sx={{ whiteSpace: 'nowrap' }}
+              sx={{
+                whiteSpace: 'nowrap',
+                minWidth: '180px'
+              }}
             >
               Book FREE Event
             </Button>
@@ -121,54 +168,113 @@ export default function HospitalCard({ event, details }) {
         </Stack>
       </Box>
 
-      {/* Date/Time Selection Modal */}
+      {/* Booking Modal with Calendar */}
       <Modal open={open} onClose={handleClose}>
         <Box sx={{
           position: 'absolute',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 400,
+          width: { xs: '90%', sm: 500 },
+          maxHeight: '90vh',
+          overflow: 'auto',
           bgcolor: 'background.paper',
           boxShadow: 24,
           p: 4,
           borderRadius: 2,
         }}>
-          <Typography variant="h6" mb={2}>
-            Select Time for {eventName}
+          <Typography variant="h6" mb={3} fontWeight={600}>
+            Book: {eventName}
           </Typography>
 
-          <Typography mb={2} fontWeight={600}>Today</Typography>
+          {/* Date Selection */}
+          <Typography mb={2} fontWeight={600}>Select Date</Typography>
+          <Box sx={{ mb: 3 }}>
+            <Stack direction="row" flexWrap="wrap" gap={1}>
+              {availableDates.map((date) => (
+                <Button
+                  key={date.date}
+                  variant={selectedDate === date.date ? "contained" : "outlined"}
+                  onClick={() => setSelectedDate(date.date)}
+                  sx={{
+                    borderRadius: 2,
+                    px: 2,
+                    py: 1,
+                    minWidth: 'auto',
+                  }}
+                >
+                  {date.display}
+                </Button>
+              ))}
+            </Stack>
+          </Box>
 
-          <FormControl component="fieldset" fullWidth>
+          {/* Time Selection */}
+          <Typography mb={2} fontWeight={600}>Select Time Slot</Typography>
+          <FormControl component="fieldset" fullWidth sx={{ mb: 3 }}>
             <RadioGroup
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
             >
-              {timeSlots.map((slot) => (
-                <FormControlLabel
-                  key={slot}
-                  value={slot}
-                  control={<Radio />}
-                  label={<Typography>{slot}</Typography>}
-                />
-              ))}
+              <Stack spacing={2}>
+                {timeSlots.map((slot) => (
+                  <FormControlLabel
+                    key={slot}
+                    value={slot}
+                    control={<Radio />}
+                    label={
+                      <Typography component="p">
+                        {slot} ({(slot === "Morning" && "9:00 AM - 12:00 PM") ||
+                          (slot === "Afternoon" && "1:00 PM - 4:00 PM") ||
+                          (slot === "Evening" && "5:00 PM - 8:00 PM")})
+                      </Typography>
+                    }
+                  />
+                ))}
+              </Stack>
             </RadioGroup>
           </FormControl>
 
+          {/* Summary */}
+          {selectedDate && selectedTime && (
+            <Box sx={{
+              bgcolor: '#f0f7ff',
+              p: 2,
+              borderRadius: 2,
+              mb: 3,
+              border: '1px solid #e0e0e0'
+            }}>
+              <Typography fontWeight={600} color="primary.main" mb={1}>
+                Booking Summary
+              </Typography>
+              <Typography>
+                Date: {availableDates.find(d => d.date === selectedDate)?.display}
+              </Typography>
+              <Typography>
+                Time: {selectedTime}
+              </Typography>
+              <Typography>
+                Event: {eventName}
+              </Typography>
+            </Box>
+          )}
+
+          {/* Action Buttons */}
           <Stack direction="row" spacing={2} mt={3}>
             <Button
               variant="outlined"
               onClick={handleClose}
               fullWidth
+              sx={{ py: 1.5 }}
             >
               Cancel
             </Button>
             <Button
               variant="contained"
               onClick={handleBookEvent}
-              disabled={!selectedTime}
+              disabled={!selectedDate || !selectedTime}
               fullWidth
+              sx={{ py: 1.5 }}
             >
               Confirm Booking
             </Button>

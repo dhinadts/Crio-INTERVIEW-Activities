@@ -7,7 +7,7 @@ import Search from "./pages/Search/Search";
 import MyBookings from "./pages/MyBookings/MyBookings";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import {theme} from './components/Theme/Theme';
+import { theme } from './components/Theme/Theme';
 import { ThemeProvider } from "@mui/material";
 
 // Responsive heading typography
@@ -39,8 +39,8 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-            <Route path="search" element={<Search />} />
-            <Route path="my-bookings" element={<MyBookings />} />
+          <Route path="search" element={<Search />} />
+          <Route path="my-bookings" element={<MyBookings />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

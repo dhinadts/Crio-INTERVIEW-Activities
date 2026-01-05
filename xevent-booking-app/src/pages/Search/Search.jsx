@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import HospitalCard from "../../components/HospitalCard/HospitalCard"; // Updated import
+import HospitalCard from "../../components/HospitalCard/HospitalCard";
 import HospitalSearch from "../../components/HospitalSearch/HospitalSearch";
 import NavBar from "../../components/Navbar/Navbar";
 import tickIcon from "../../assets/event_booked.png";
@@ -56,6 +56,7 @@ export default function Search() {
         sx={{
           background: "linear-gradient(#EFF5FE, rgba(241,247,255,0.47))",
           width: "100%",
+          minHeight: "100vh",
         }}
       >
         {/* Search Bar Section */}
@@ -64,6 +65,7 @@ export default function Search() {
             background: "linear-gradient(90deg, #2AA7FF, #0C8CE5)",
             borderBottomLeftRadius: "1rem",
             borderBottomRightRadius: "1rem",
+            pb: 8,
           }}
         >
           <Container
@@ -75,8 +77,8 @@ export default function Search() {
               transform: "translateY(50px)",
               mb: "50px",
               boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-              position: "relative", // Add this
-              zIndex: 1000, // Add this
+              position: "relative",
+              zIndex: 100,
             }}
           >
             <HospitalSearch />
@@ -90,7 +92,7 @@ export default function Search() {
               <Typography component="h1" variant="h4" fontWeight={600} mb={1}>
                 {events.length} events available in {city}
               </Typography>
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2} alignItems="center">
                 <img src={tickIcon} height={24} width={24} alt="verified" />
                 <Typography color="#787887">
                   Verified events with easy & quick booking
@@ -101,33 +103,39 @@ export default function Search() {
 
           <Stack direction={{ xs: "column", md: "row" }} alignItems="flex-start">
             {/* Event Cards */}
-            <Stack spacing={3} width={{ xs: "100%", md: "calc(100% - 384px)" }}>
-              {events.map((event, index) => (
-                <HospitalCard key={index} event={event} />
-              ))}
+            <Box width={{ xs: "100%", md: "calc(100% - 384px)" }}>
+              <Stack spacing={3}>
+                {events.map((event, index) => (
+                  <HospitalCard key={index} event={event} />
+                ))}
 
-              {isLoading && (
-                <Typography bgcolor="#fff" p={3} borderRadius={2}>
-                  Loading events...
-                </Typography>
-              )}
+                {isLoading && (
+                  <Typography bgcolor="#fff" p={3} borderRadius={2}>
+                    Loading events...
+                  </Typography>
+                )}
 
-              {events.length === 0 && !isLoading && state && city && (
-                <Typography bgcolor="#fff" p={3} borderRadius={2}>
-                  No events found in {city}, {state}
-                </Typography>
-              )}
+                {events.length === 0 && !isLoading && state && city && (
+                  <Typography bgcolor="#fff" p={3} borderRadius={2}>
+                    No events found in {city}, {state}
+                  </Typography>
+                )}
 
-              {!state && !isLoading && (
-                <Typography bgcolor="#fff" p={3} borderRadius={2}>
-                  Please select a state and city
-                </Typography>
-              )}
-            </Stack>
+                {!state && !isLoading && (
+                  <Typography bgcolor="#fff" p={3} borderRadius={2}>
+                    Please select a state and city to search for events
+                  </Typography>
+                )}
+              </Stack>
+            </Box>
 
             {/* CTA Banner */}
-            <Box ml={{ md: 3 }} mt={{ xs: 4, md: 0 }}>
-              <img src={cta} width={360} alt="cta" />
+            <Box
+              ml={{ md: 3 }}
+              mt={{ xs: 4, md: 0 }}
+              sx={{ position: "sticky", top: 20 }}
+            >
+              <img src={cta} width={360} alt="cta" style={{ borderRadius: 8 }} />
             </Box>
           </Stack>
         </Container>
