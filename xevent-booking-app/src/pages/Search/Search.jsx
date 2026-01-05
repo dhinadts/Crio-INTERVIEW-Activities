@@ -25,9 +25,14 @@ export default function Search() {
       setEvents([]);
 
       try {
+        /* const response = await axios.get(
+          "https://eventdata.onrender.com/events?",
+          {
+            params: { state, city },
+          }
+        ); */
         const response = await axios.get(
-          `/search?state=${state}&city=${city}`,
-          // { params: { state, city } }
+          `https://eventdata.onrender.com/events?state=${state}&city=${city}`
         );
         setEvents(response.data);
       } catch (err) {
