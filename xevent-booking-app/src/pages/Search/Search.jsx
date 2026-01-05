@@ -15,35 +15,29 @@ export default function Search() {
   const [state, setState] = useState(searchParams.get("state"));
   const [city, setCity] = useState(searchParams.get("city"));
   const [isLoading, setIsLoading] = useState(false);
+  const [canFetch, setCanFetch] = useState(false);
 
-  // Fetch events
   useEffect(() => {
-    if (!state || !city) return;
-
-    const getEvents = async () => {
-      setIsLoading(true);
-      setEvents([]);
-
-      try {
-        /* const response = await axios.get(
-          "https://eventdata.onrender.com/events?",
-          {
-            params: { state, city },
-          }
-        ); */
-        const response = await axios.get(
-          `https://eventdata.onrender.com/events?state=${state}&city=${city}`
-        );
-        setEvents(response.data);
-      } catch (err) {
-        console.error("Error fetching events:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getEvents();
+    if (state && city) {
+      setCanFetch(true);
+    }
   }, [state, city]);
+
+  useEffect(() => {
+    const stateParam = searchParams.get("state");
+    const cityParam = searchParams.get("city");
+
+    if (!stateParam || !cityParam) return;
+
+    setIsLoading(true);
+
+    axios
+      .get("https://eventdata.onrender.com/events", {
+        params: { state: stateParam, city: cityParam },
+      })
+      .then((res) => setEvents(res.data))
+      .finally(() => setIsLoading(false));
+  }, [searchParams]);
 
 
   // Sync URL params
