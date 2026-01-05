@@ -85,9 +85,9 @@ export default function Search() {
         <Container maxWidth="xl" sx={{ pt: 8, pb: 10 }}>
           {events.length > 0 && (
             <Box sx={{ mb: 3 }}>
-              {/* FIXED: Use component="h1" to create actual h1 element */}
-              {events.length > 0 && (<h1>{events.length} events available in {city}</h1>)}
-
+              <Typography component="h1" variant="h4" fontWeight={600} mb={1}>
+                {events.length} events available in {city}
+              </Typography>
               <Stack direction="row" spacing={2}>
                 <img src={tickIcon} height={24} width={24} alt="verified" />
                 <Typography color="#787887">

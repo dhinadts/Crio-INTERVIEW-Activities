@@ -3,15 +3,17 @@ import { useState } from "react";
 import { Box, Button, Divider, Stack, Typography, Modal, Radio, RadioGroup, FormControlLabel, FormControl } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 
-// CHANGE FROM EventCard to HospitalCard
 export default function HospitalCard({ event, details }) {
   // Use event prop if available, otherwise use details prop
   const eventData = event || details || {};
 
+  // Extract event name - check multiple possible field names
+  const eventName = eventData.eventName || eventData["Hospital Name"] || "Event";
+
   const [open, setOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
 
-  const timeSlots = ["Today", "Morning", "Afternoon", "Evening"];
+  const timeSlots = ["Morning", "Afternoon", "Evening"];
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -23,7 +25,7 @@ export default function HospitalCard({ event, details }) {
     // Save booking to localStorage
     const bookingData = {
       ...eventData,
-      eventName: eventData.eventName || eventData["Hospital Name"] || "Event",
+      eventName: eventName,
       bookingDate: new Date().toISOString(),
       bookingTime: selectedTime,
       bookingEmail: "user@example.com"
@@ -59,6 +61,7 @@ export default function HospitalCard({ event, details }) {
             width={80}
             height={80}
             sx={{ flexShrink: 0 }}
+            alt="event icon"
           />
 
           {/* Event Info */}
@@ -70,8 +73,7 @@ export default function HospitalCard({ event, details }) {
               fontSize={20}
               mb={1}
             >
-              {eventData.eventName}
-              {/*  || eventData["Hospital Name"] || "Event Name"} */}
+              {eventName}
             </Typography>
 
             <Typography color="#414146" fontSize={14} fontWeight={600}>
@@ -104,13 +106,17 @@ export default function HospitalCard({ event, details }) {
             >
               Available Today
             </Typography>
-            <div>   <button id="book-event-btn" onClick={handleOpen}>Book FREE Event</button> </div>
 
-            {/* <Button data-testid="book-event-btn" variant="contained"
-              disableElevation */}
-            {/* onClick={handleOpen} */}
-            {/* Book FREE Event
-            </Button> */}
+            {/* FIXED: Use Button component with data-testid for Cypress tests */}
+            <Button
+              variant="contained"
+              data-testid="book-event-btn"
+              onClick={handleOpen}
+              disableElevation
+              sx={{ whiteSpace: 'nowrap' }}
+            >
+              Book FREE Event
+            </Button>
           </Stack>
         </Stack>
       </Box>
@@ -129,25 +135,22 @@ export default function HospitalCard({ event, details }) {
           borderRadius: 2,
         }}>
           <Typography variant="h6" mb={2}>
-            Select Time for {eventData.eventName || eventData["Hospital Name"]}
+            Select Time for {eventName}
           </Typography>
 
-          <Typography mb={1}>Today</Typography>
+          <Typography mb={2} fontWeight={600}>Today</Typography>
 
-          <FormControl component="fieldset">
+          <FormControl component="fieldset" fullWidth>
             <RadioGroup
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
             >
               {timeSlots.map((slot) => (
                 <FormControlLabel
-                  label={<span>{slot}</span>}
+                  key={slot}
                   value={slot}
                   control={<Radio />}
-                  key={slot}
-                // value={slot}
-                // control={<Radio />}
-                // label={slot}
+                  label={<Typography>{slot}</Typography>}
                 />
               ))}
             </RadioGroup>
