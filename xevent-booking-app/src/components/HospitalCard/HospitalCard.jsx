@@ -80,12 +80,15 @@ export default function HospitalCard({ event, details }) {
 
   return (
     <>
-      <Box
+      <Box data-testid="event-card"
+        onClick={handleOpen}
+
         sx={{
           borderRadius: 2,
           bgcolor: "#fff",
           p: { xs: 2, md: 4 },
           boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+          cursor: "pointer"
         }}
       >
         <Stack
@@ -188,20 +191,17 @@ export default function HospitalCard({ event, details }) {
           </Typography>
 
           {/* Date Selection */}
-          <Typography mb={2} fontWeight={600}>Select Date</Typography>
+          <Typography data-testid="date-section" mb={2} fontWeight={600}>
+            Select Date
+          </Typography>
           <Box sx={{ mb: 3 }}>
             <Stack direction="row" flexWrap="wrap" gap={1}>
               {availableDates.map((date) => (
                 <Button
+                  data-testid="date-option"
                   key={date.date}
                   variant={selectedDate === date.date ? "contained" : "outlined"}
                   onClick={() => setSelectedDate(date.date)}
-                  sx={{
-                    borderRadius: 2,
-                    px: 2,
-                    py: 1,
-                    minWidth: 'auto',
-                  }}
                 >
                   {date.display}
                 </Button>
@@ -210,7 +210,9 @@ export default function HospitalCard({ event, details }) {
           </Box>
 
           {/* Time Selection */}
-          <Typography mb={2} fontWeight={600}>Select Time Slot</Typography>
+          <Typography data-testid="time-section" mb={2} fontWeight={600}>
+            Select Time Slot
+          </Typography>
           <FormControl component="fieldset" fullWidth sx={{ mb: 3 }}>
             <RadioGroup
               value={selectedTime}
@@ -219,6 +221,7 @@ export default function HospitalCard({ event, details }) {
               <Stack spacing={2}>
                 {timeSlots.map((slot) => (
                   <FormControlLabel
+                    data-testid="time-option"
                     key={slot}
                     value={slot}
                     control={<Radio />}

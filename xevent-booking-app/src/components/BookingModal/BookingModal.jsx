@@ -62,6 +62,7 @@ export default function BookingModal({
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <Box
+        data-testid="booking-modal"
         sx={{
           width: "95%",
           maxWidth: 600,
