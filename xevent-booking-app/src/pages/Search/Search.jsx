@@ -24,20 +24,31 @@ export default function Search() {
   }, [state, city]);
 
   useEffect(() => {
-    const stateParam = searchParams.get("state");
-    const cityParam = searchParams.get("city");
+    if (!state || !city) return;
 
-    if (!stateParam || !cityParam) return;
+    const getEvents = async () => {
+      setIsLoading(true);
+      setEvents([]);
 
-    setIsLoading(true);
+      try {
+        const response = await axios.get(
+          "https://eventdata.onrender.com/events",
+          {
+            params: { state, city },
+          }
+        );
 
-    axios
-      .get("https://eventdata.onrender.com/events", {
-        params: { state: stateParam, city: cityParam },
-      })
-      .then((res) => setEvents(res.data))
-      .finally(() => setIsLoading(false));
-  }, [searchParams]);
+        setEvents(response.data);
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getEvents();
+  }, [state, city]);
+
 
 
   // Sync URL params
