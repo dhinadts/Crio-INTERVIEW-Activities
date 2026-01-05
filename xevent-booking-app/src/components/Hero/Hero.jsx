@@ -33,7 +33,7 @@ export default function Hero() {
                 id="searchBtn"
                 disableElevation
               >
-                <button type="submit" id="searchBtn" style={{ backgroundColor: "transparent", border: "none", color: "white" }}>Find Events</button>
+                <button type="submit" id="searchBtn" style={{ backgroundColor: "transparent", border: "none", color: "white" }}>Search</button>
 
               </Button>
             </Link>

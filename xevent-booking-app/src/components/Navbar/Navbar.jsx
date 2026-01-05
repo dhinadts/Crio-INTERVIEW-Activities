@@ -23,7 +23,7 @@ export default function NavBar() {
     <header>
       <Box p={1} bgcolor="primary.main">
         <Typography fontSize={14} textAlign="center" color="#fff">
-          Stay updated with the latest events and maximize your experiance with our platform.
+          Stay updated with the latest events and maximize your experiance with our platformsearchbtn.
         </Typography>
       </Box>
 

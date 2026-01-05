@@ -38,7 +38,7 @@ export default function SearchBar({ list, filterList }) {
         />
         <Button
           type="submit"
-          // title="Search"
+          title="Search"
           label='Search'
           id="searchBtn"
           variant="contained"
