@@ -76,3 +76,26 @@ h6 {
   outline: 1px solid #2aa7ff;
   outline-offset: 4px;
 }
+
+/* Fix for Search button overlay issue */
+#searchBtn {
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
+/* Override any MuiStack that might be covering the button */
+.MuiStack-root {
+  position: relative !important;
+  z-index: auto !important;
+}
+
+/* Ensure form elements don't create stacking contexts */
+form {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make sure the button is always clickable */
+button#searchBtn {
+  pointer-events: auto !important;
+}

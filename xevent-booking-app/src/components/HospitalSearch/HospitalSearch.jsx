@@ -1,4 +1,4 @@
-import { MenuItem, Select, Button, InputAdornment, Box } from "@mui/material";
+import { MenuItem, Select, Button, InputAdornment, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
@@ -56,139 +56,107 @@ export default function HospitalSearch() {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        display: "flex",
-        gap: 2,
-        alignItems: "stretch",
-        flexDirection: { xs: "column", md: "row" },
-        width: "100%",
-        minHeight: "56px",
-      }}
-    >
-      {/* State Dropdown */}
-      <Box 
-        id="state" 
-        sx={{ 
-          flex: 1, 
-          display: "flex",
-          minWidth: 0,
-        }}
+    <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={2}
+        alignItems={{ xs: "stretch", md: "center" }}
+        sx={{ width: "100%" }}
       >
-        <Select
-          displayEmpty
-          name="state"
-          value={formData.state}
-          onChange={handleChange}
-          startAdornment={
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          }
-          required
-          sx={{ 
-            width: "100%",
-            backgroundColor: "white",
-            '& .MuiSelect-select': {
-              height: "auto",
-              minHeight: "56px",
-              display: "flex",
-              alignItems: "center",
-            },
-          }}
-          MenuProps={{
-            PaperProps: {
-              sx: {
-                maxHeight: 300,
-                zIndex: 9999,
+        {/* State Dropdown */}
+        <div id="state" style={{ flex: 1, minWidth: 0 }}>
+          <Select
+            displayEmpty
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            }
+            required
+            sx={{
+              width: "100%",
+              backgroundColor: "white",
+              height: "56px",
+              '& .MuiSelect-select': {
+                height: "auto",
+                minHeight: "56px",
+                display: "flex",
+                alignItems: "center",
               },
-            },
-          }}
-        >
-          <MenuItem disabled value="">
-            State
-          </MenuItem>
-          {states.map((state) => (
-            <MenuItem key={state} value={state}>
-              {state}
+            }}
+          >
+            <MenuItem disabled value="">
+              State
             </MenuItem>
-          ))}
-        </Select>
-      </Box>
+            {states.map((state) => (
+              <MenuItem key={state} value={state}>
+                {state}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
 
-      {/* City Dropdown */}
-      <Box 
-        id="city" 
-        sx={{ 
-          flex: 1, 
-          display: "flex",
-          minWidth: 0,
-        }}
-      >
-        <Select
-          displayEmpty
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-          startAdornment={
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          }
-          required
-          sx={{ 
-            width: "100%",
-            backgroundColor: "white",
-            '& .MuiSelect-select': {
-              height: "auto",
-              minHeight: "56px",
-              display: "flex",
-              alignItems: "center",
-            },
-          }}
-          MenuProps={{
-            PaperProps: {
-              sx: {
-                maxHeight: 300,
-                zIndex: 9999,
+        {/* City Dropdown */}
+        <div id="city" style={{ flex: 1, minWidth: 0 }}>
+          <Select
+            displayEmpty
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            }
+            required
+            sx={{
+              width: "100%",
+              backgroundColor: "white",
+              height: "56px",
+              '& .MuiSelect-select': {
+                height: "auto",
+                minHeight: "56px",
+                display: "flex",
+                alignItems: "center",
               },
-            },
-          }}
-        >
-          <MenuItem disabled value="">
-            City
-          </MenuItem>
-          {cities.map((city) => (
-            <MenuItem key={city} value={city}>
-              {city}
+            }}
+          >
+            <MenuItem disabled value="">
+              City
             </MenuItem>
-          ))}
-        </Select>
-      </Box>
+            {cities.map((city) => (
+              <MenuItem key={city} value={city}>
+                {city}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
 
-      {/* Search Button - FIXED POSITIONING */}
-      <Button
-        type="submit"
-        variant="contained"
-        id="searchBtn"
-        size="large"
-        startIcon={<SearchIcon />}
-        sx={{
-          minHeight: "56px",
-          px: 4,
-          minWidth: { xs: "100%", md: "140px" },
-          mt: { xs: 1, md: 0 },
-          alignSelf: { xs: "stretch", md: "auto" },
-          position: "relative",
-          zIndex: 1,
-          flexShrink: 0,
-        }}
-        disableElevation
-      >
-        Search
-      </Button>
-    </Box>
+        {/* Search Button - FIXED: Positioned outside Stack to avoid overlay */}
+        <Button
+          type="submit"
+          variant="contained"
+          id="searchBtn"
+          size="large"
+          startIcon={<SearchIcon />}
+          sx={{
+            height: "56px",
+            px: 6,
+            minWidth: { xs: "100%", md: "140px" },
+            mt: { xs: 1, md: 0 },
+            alignSelf: { xs: "stretch", md: "center" },
+            position: "relative",
+            zIndex: 2,
+            flexShrink: 0,
+          }}
+          disableElevation
+        >
+          Search
+        </Button>
+      </Stack>
+    </form>
   );
 }

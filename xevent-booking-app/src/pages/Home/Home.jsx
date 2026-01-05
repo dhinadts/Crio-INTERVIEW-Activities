@@ -36,7 +36,7 @@ export default function Home() {
             p={{ xs: 2.5, md: 8 }}
             mt={{ xs: -2, md: -6, lg: -10, xl: -14 }}
             position="relative"
-            zIndex={99}
+            zIndex={1} // Changed from 99 to 1
             bgcolor="#fff"
             borderRadius="15px"
             spacing={10}
