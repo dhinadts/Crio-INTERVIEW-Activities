@@ -1,154 +1,287 @@
-import { MenuItem, Select, Button, InputAdornment, Box } from "@mui/material";
-import { useEffect, useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import eventIcon from "../../assets/event_booked.png";
+import { useState, useEffect } from "react";
+import {
+  Box, Button, Divider, Stack, Typography, Modal,
+  Radio, RadioGroup, FormControlLabel, FormControl
+} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
-export default function HospitalSearch() {
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [formData, setFormData] = useState({ state: "", city: "" });
-  const navigate = useNavigate();
+export default function HospitalCard({ event, details }) {
+  const eventData = event || details || {};
 
-  // Fetch states on mount
+  // Extract event name from API response
+  const eventName = eventData["eventName"] || eventData.eventName || eventData["Hospital Name"] || "Event";
+
+  const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [availableDates, setAvailableDates] = useState([]);
+
+  // Generate dates for the next 7 days
   useEffect(() => {
-    const fetchStates = async () => {
-      try {
-        const response = await axios.get("https://eventdata.onrender.com/states");
-        setStates(response.data);
-      } catch (error) {
-        console.error("Error fetching states:", error);
-      }
-    };
-    fetchStates();
+    const dates = [];
+    const today = new Date();
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+
+      dates.push({
+        date: date.toISOString().split('T')[0],
+        display: i === 0 ? "Today" :
+          i === 1 ? "Tomorrow" :
+            date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+      });
+    }
+
+    setAvailableDates(dates);
+    setSelectedDate(dates[0].date);
   }, []);
 
-  // Fetch cities when state changes
-  useEffect(() => {
-    const fetchCities = async () => {
-      setCities([]);
-      setFormData((prev) => ({ ...prev, city: "" }));
-      try {
-        const response = await axios.get(
-          `https://eventdata.onrender.com/cities/${formData.state}`
-        );
-        setCities(response.data);
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-      }
-    };
+  const timeSlots = ["Morning", "Afternoon", "Evening"];
 
-    if (formData.state !== "") {
-      fetchCities();
-    }
-  }, [formData.state]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedTime("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.state && formData.city) {
-      navigate(`/search?state=${formData.state}&city=${formData.city}`);
+  const handleBookEvent = () => {
+    if (!selectedDate || !selectedTime) {
+      alert("Please select both date and time");
+      return;
     }
+
+    const selectedDateObj = availableDates.find(d => d.date === selectedDate);
+    const displayDate = selectedDateObj ? selectedDateObj.display : selectedDate;
+
+    // Save booking to localStorage
+    const bookingData = {
+      eventName: eventName,
+      rating: eventData["Overall Rating"] || eventData.rating || 4,
+      address: eventData.Address || eventData.address || "",
+      city: eventData.City || eventData.city || "",
+      state: eventData.State || eventData.state || "",
+      bookingDate: new Date().toISOString(),
+      bookingDisplayDate: displayDate,
+      bookingTime: selectedTime,
+      bookingEmail: "user@example.com"
+    };
+
+    const existingBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+    existingBookings.push(bookingData);
+    localStorage.setItem('bookings', JSON.stringify(existingBookings));
+
+    handleClose();
+    alert(`Successfully booked ${eventName} for ${displayDate} - ${selectedTime}`);
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        display: "flex",
-        gap: 4,
-        justifyContent: "space-between",
-        flexDirection: { xs: "column", md: "row" },
-        alignItems: { xs: "stretch", md: "center" }, // Added alignment
-        position: "relative",
-        zIndex: 1, // Added z-index
-      }}
-    >
-      {/* State Dropdown */}
-      <div id="state" style={{ flex: 1 }}>
-        <Select
-          displayEmpty
-          name="state"
-          value={formData.state}
-          onChange={handleChange}
-          startAdornment={
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          }
-          required
-          sx={{
-            minWidth: 200,
-            width: "100%",
-            backgroundColor: "white",
-          }}
-        >
-          <MenuItem disabled value="">
-            State
-          </MenuItem>
-          {states.map((state) => (
-            <MenuItem key={state} value={state}>
-              {state}
-            </MenuItem>
-          ))}
-        </Select>
-      </div>
-
-      {/* City Dropdown */}
-      <div id="city" style={{ flex: 1 }}>
-        <Select
-          displayEmpty
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-          startAdornment={
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          }
-          required
-          sx={{
-            minWidth: 200,
-            width: "100%",
-            backgroundColor: "white",
-          }}
-        >
-          <MenuItem disabled value="">
-            City
-          </MenuItem>
-          {cities.map((city) => (
-            <MenuItem key={city} value={city}>
-              {city}
-            </MenuItem>
-          ))}
-        </Select>
-      </div>
-
-      {/* Search Button - FIXED: Added proper positioning */}
-      <Button
-        type="submit"
-        variant="contained"
-        id="searchBtn"
-        size="large"
-        startIcon={<SearchIcon />}
+    <>
+      <Box
         sx={{
-          py: "15px",
-          px: 8,
-          flexShrink: 0,
-          height: "56px", // Match Select height
-          alignSelf: { xs: "stretch", md: "center" },
-          position: "relative",
-          zIndex: 1000,
+          borderRadius: 2,
+          bgcolor: "#fff",
+          p: { xs: 2, md: 4 },
+          boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
         }}
-        disableElevation
       >
-        Search
-      </Button>
-    </Box>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={{ xs: 2, md: 4 }}
+          alignItems="flex-start"
+        >
+          {/* Left Icon */}
+          <Box
+            component="img"
+            src={eventIcon}
+            width={80}
+            height={80}
+            sx={{ flexShrink: 0 }}
+            alt="event icon"
+          />
+
+          {/* Event Info */}
+          <Box flex={1}>
+            <Typography
+              component="h3"
+              color="primary.main"
+              fontWeight={600}
+              fontSize={20}
+              mb={1}
+            >
+              {eventName}
+            </Typography>
+
+            <Typography color="#414146" fontSize={14} fontWeight={600}>
+              {eventData.City || eventData.city || "City"}, {eventData.State || eventData.state || "State"}
+            </Typography>
+
+            <Typography fontSize={14} mt={0.5} mb={1}>
+              {eventData.Address || eventData.address || "Address not available"}
+            </Typography>
+
+            <Divider sx={{ borderStyle: "dashed", my: 2 }} />
+
+            {/* Rating */}
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <StarIcon sx={{ color: "#4CAF50", fontSize: 20 }} />
+              <Typography fontWeight={700} color="#4CAF50">
+                {eventData["Overall Rating"] || eventData.rating || 4}
+              </Typography>
+            </Stack>
+          </Box>
+
+          {/* Action */}
+          <Stack justifyContent="flex-end" alignItems={{ xs: "flex-start", md: "flex-end" }}>
+            <Typography
+              textAlign={{ xs: "left", md: "center" }}
+              color="primary.green"
+              fontSize={14}
+              fontWeight={500}
+              mb={1}
+            >
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                <CalendarTodayIcon fontSize="small" />
+                <span>Available for next 7 days</span>
+              </Stack>
+            </Typography>
+
+            <Button
+              variant="contained"
+              data-testid="book-event-btn"
+              onClick={handleOpen}
+              disableElevation
+              sx={{
+                whiteSpace: 'nowrap',
+                minWidth: '180px'
+              }}
+            >
+              Book FREE Event
+            </Button>
+          </Stack>
+        </Stack>
+      </Box>
+
+      {/* Booking Modal with Calendar */}
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: { xs: '90%', sm: 500 },
+          maxHeight: '90vh',
+          overflow: 'auto',
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          p: 4,
+          borderRadius: 2,
+        }}>
+          <Typography variant="h6" mb={3} fontWeight={600}>
+            Book: {eventName}
+          </Typography>
+
+          {/* Date Selection */}
+          <Typography mb={2} fontWeight={600}>Select Date</Typography>
+          <Box sx={{ mb: 3 }}>
+            <Stack direction="row" flexWrap="wrap" gap={1}>
+              {availableDates.map((date) => (
+                <Button
+                  key={date.date}
+                  variant={selectedDate === date.date ? "contained" : "outlined"}
+                  onClick={() => setSelectedDate(date.date)}
+                  sx={{
+                    borderRadius: 2,
+                    px: 2,
+                    py: 1,
+                    minWidth: 'auto',
+                  }}
+                >
+                  {date.display}
+                </Button>
+              ))}
+            </Stack>
+          </Box>
+
+          {/* Time Selection - Using p tags as required */}
+          <Typography mb={2} fontWeight={600}>Select Time Slot</Typography>
+          <FormControl component="fieldset" fullWidth sx={{ mb: 3 }}>
+            <RadioGroup
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+            >
+              <Stack spacing={2}>
+                {timeSlots.map((slot) => (
+                  <FormControlLabel
+                    key={slot}
+                    value={slot}
+                    control={<Radio />}
+                    label={
+                      <Box>
+                        <Typography component="p" sx={{ display: 'inline' }}>
+                          {slot}
+                        </Typography>
+                        <Typography component="p" sx={{ display: 'inline', color: 'text.secondary', ml: 1 }}>
+                          ({(slot === "Morning" && "9:00 AM - 12:00 PM") ||
+                            (slot === "Afternoon" && "1:00 PM - 4:00 PM") ||
+                            (slot === "Evening" && "5:00 PM - 8:00 PM")})
+                        </Typography>
+                      </Box>
+                    }
+                  />
+                ))}
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+
+          {/* Summary */}
+          {selectedDate && selectedTime && (
+            <Box sx={{
+              bgcolor: '#f0f7ff',
+              p: 2,
+              borderRadius: 2,
+              mb: 3,
+              border: '1px solid #e0e0e0'
+            }}>
+              <Typography fontWeight={600} color="primary.main" mb={1}>
+                Booking Summary
+              </Typography>
+              <Typography component="p">
+                Date: {availableDates.find(d => d.date === selectedDate)?.display}
+              </Typography>
+              <Typography component="p">
+                Time: {selectedTime}
+              </Typography>
+              <Typography component="p">
+                Event: {eventName}
+              </Typography>
+            </Box>
+          )}
+
+          {/* Action Buttons */}
+          <Stack direction="row" spacing={2} mt={3}>
+            <Button
+              variant="outlined"
+              onClick={handleClose}
+              fullWidth
+              sx={{ py: 1.5 }}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleBookEvent}
+              disabled={!selectedDate || !selectedTime}
+              fullWidth
+              sx={{ py: 1.5 }}
+            >
+              Confirm Booking
+            </Button>
+          </Stack>
+        </Box>
+      </Modal>
+    </>
   );
 }

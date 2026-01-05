@@ -66,6 +66,7 @@ export default function Search() {
             borderBottomLeftRadius: "1rem",
             borderBottomRightRadius: "1rem",
             pb: 8,
+            position: "relative",
           }}
         >
           <Container
