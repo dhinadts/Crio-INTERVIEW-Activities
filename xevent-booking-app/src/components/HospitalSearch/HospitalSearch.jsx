@@ -64,11 +64,13 @@ export default function HospitalSearch() {
         gap: 4,
         justifyContent: "space-between",
         flexDirection: { xs: "column", md: "row" },
+        alignItems: { xs: "stretch", md: "center" }, // Added alignment
         position: "relative",
+        zIndex: 1, // Added z-index
       }}
     >
       {/* State Dropdown */}
-      <div id="state">
+      <div id="state" style={{ flex: 1 }}>
         <Select
           displayEmpty
           name="state"
@@ -80,7 +82,11 @@ export default function HospitalSearch() {
             </InputAdornment>
           }
           required
-          sx={{ minWidth: 200, width: "100%" }}
+          sx={{
+            minWidth: 200,
+            width: "100%",
+            backgroundColor: "white",
+          }}
         >
           <MenuItem disabled value="">
             State
@@ -94,7 +100,7 @@ export default function HospitalSearch() {
       </div>
 
       {/* City Dropdown */}
-      <div id="city">
+      <div id="city" style={{ flex: 1 }}>
         <Select
           displayEmpty
           name="city"
@@ -106,7 +112,11 @@ export default function HospitalSearch() {
             </InputAdornment>
           }
           required
-          sx={{ minWidth: 200, width: "100%" }}
+          sx={{
+            minWidth: 200,
+            width: "100%",
+            backgroundColor: "white",
+          }}
         >
           <MenuItem disabled value="">
             City
@@ -119,7 +129,7 @@ export default function HospitalSearch() {
         </Select>
       </div>
 
-      {/* Search Button */}
+      {/* Search Button - FIXED: Added proper positioning */}
       <Button
         type="submit"
         variant="contained"
@@ -130,8 +140,10 @@ export default function HospitalSearch() {
           py: "15px",
           px: 8,
           flexShrink: 0,
-          zIndex: 1000,
+          height: "56px", // Match Select height
+          alignSelf: { xs: "stretch", md: "center" },
           position: "relative",
+          zIndex: 1000,
         }}
         disableElevation
       >

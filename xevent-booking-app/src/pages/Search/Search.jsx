@@ -75,6 +75,8 @@ export default function Search() {
               transform: "translateY(50px)",
               mb: "50px",
               boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+              position: "relative", // Add this
+              zIndex: 1000, // Add this
             }}
           >
             <HospitalSearch />
