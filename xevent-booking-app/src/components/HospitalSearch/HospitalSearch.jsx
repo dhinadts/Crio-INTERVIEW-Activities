@@ -49,6 +49,23 @@ export default function EventSearch() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  /* const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.state && formData.city) {
+      try {
+        const response = await axios.get(`https://eventdata.onrender.com/events`, {
+          params: { state: formData.state, city: formData.city },
+        });
+
+        // Optionally save or use the data before navigating
+        console.log("Events:", response.data);
+        // navigate only if successful
+        navigate(`/search?state=${formData.state}&city=${formData.city}`);
+      } catch (err) {
+        console.error("Event fetch failed:", err);
+      }
+    }
+  }; */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.state && formData.city) {
@@ -66,7 +83,7 @@ export default function EventSearch() {
       }
     }
   };
-  return (
+  /* return (
     <Box
       component="form"
       onSubmit={handleSubmit}
@@ -137,6 +154,83 @@ export default function EventSearch() {
         disableElevation
       >
         <button type="submit" id="searchBtn" style={{ backgroundColor: "transparent", border: "none", color: "white" }}>Search</button>
+      </Button>
+    </Box>
+  );
+}
+ */
+
+  return (
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        display: "flex",
+        gap: 4,
+        justifyContent: "space-between",
+        flexDirection: { xs: "column", md: "row" },
+      }}
+    >
+      <Select
+        displayEmpty
+        id="state"
+        name="state"
+        value={formData.state}
+        onChange={handleChange}
+        startAdornment={
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        }
+        required
+        sx={{ minWidth: 200, width: "100%" }}
+      >
+        <MenuItem disabled value="">
+          State
+        </MenuItem>
+        {states.map((state) => (
+          <MenuItem key={state} value={state}>
+            {state}
+          </MenuItem>
+        ))}
+      </Select>
+
+      <Select
+        displayEmpty
+        id="city"
+        name="city"
+        value={formData.city}
+        onChange={handleChange}
+        startAdornment={
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        }
+        required
+        sx={{ minWidth: 200, width: "100%" }}
+      >
+        <MenuItem disabled value="">
+          City
+        </MenuItem>
+        {cities.map((city) => (
+          <MenuItem key={city} value={city}>
+            {city}
+          </MenuItem>
+        ))}
+      </Select>
+
+      {/* FIXED: Remove nested button and add id to the main button */}
+      <Button
+        type="submit"
+        variant="contained"
+        title="getEvents"
+        id="searchBtn"
+        size="large"
+        startIcon={<SearchIcon />}
+        sx={{ py: "15px", px: 8, flexShrink: 0 }}
+        disableElevation
+      >
+        Search
       </Button>
     </Box>
   );

@@ -13,10 +13,9 @@ import tickIcon from "../../assets/event_booked.png";
 
 
 import cta from "../../assets/singer_2.png";
-// const cta = "";
+
 export default function Search() {
   const [searchParams] = useSearchParams();
-
   const [events, setEvents] = useState([]);
   const [state, setState] = useState(searchParams.get("state"));
   const [city, setCity] = useState(searchParams.get("city"));
@@ -91,7 +90,8 @@ export default function Search() {
         <Container maxWidth="xl" sx={{ pt: 8, pb: 10 }}>
           {events.length > 0 && (
             <Box sx={{ mb: 3 }}>
-              <Typography fontSize={24} fontWeight={500} mb={2}>
+              {/* FIXED: Changed from h1 to Typography */}
+              <Typography variant="h1" fontSize={24} fontWeight={500} mb={2}>
                 {`${events.length} events available in `}
                 <span style={{ textTransform: "capitalize" }}>
                   {city?.toLowerCase()}

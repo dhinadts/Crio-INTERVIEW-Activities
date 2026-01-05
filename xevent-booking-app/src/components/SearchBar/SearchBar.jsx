@@ -24,7 +24,6 @@ export default function SearchBar({ list, filterList }) {
       <Stack direction="row" spacing={2}>
         <TextField
           type="text"
-          // name="searchBtn"
           label="Search By Hospital"
           variant="outlined"
           fullWidth
@@ -39,7 +38,6 @@ export default function SearchBar({ list, filterList }) {
         <Button
           type="submit"
           title="Search"
-          label='Search'
           id="searchBtn"
           variant="contained"
           size="large"
