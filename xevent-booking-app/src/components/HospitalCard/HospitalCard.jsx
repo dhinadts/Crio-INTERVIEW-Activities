@@ -104,13 +104,13 @@ export default function HospitalCard({ event, details }) {
             >
               Available Today
             </Typography>
+            <div>   <button id="book-event-btn" onClick={handleOpen}>Book FREE Event</button> </div>
 
-
-            <Button data-testid="book-event-btn" variant="contained"
-              disableElevation
-              onClick={handleOpen}>
-              Book FREE Event
-            </Button>
+            {/* <Button data-testid="book-event-btn" variant="contained"
+              disableElevation */}
+            {/* onClick={handleOpen} */}
+            {/* Book FREE Event
+            </Button> */}
           </Stack>
         </Stack>
       </Box>

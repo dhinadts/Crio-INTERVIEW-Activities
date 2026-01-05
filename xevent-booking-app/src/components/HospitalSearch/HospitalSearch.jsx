@@ -10,36 +10,35 @@ export default function HospitalSearch() {
   const [formData, setFormData] = useState({ state: "", city: "" });
   const navigate = useNavigate();
 
+  // Fetch states on mount
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await axios.get(
-          "https://eventdata.onrender.com/states"
-        );
+        const response = await axios.get("https://eventdata.onrender.com/states");
         setStates(response.data);
       } catch (error) {
         console.error("Error fetching states:", error);
       }
     };
-
     fetchStates();
   }, []);
 
+  // Fetch cities when state changes
   useEffect(() => {
     const fetchCities = async () => {
       setCities([]);
       setFormData((prev) => ({ ...prev, city: "" }));
       try {
-        const data = await axios.get(
+        const response = await axios.get(
           `https://eventdata.onrender.com/cities/${formData.state}`
         );
-        setCities(data.data);
+        setCities(response.data);
       } catch (error) {
-        console.log("Error in fetching city:", error);
+        console.error("Error fetching cities:", error);
       }
     };
 
-    if (formData.state != "") {
+    if (formData.state !== "") {
       fetchCities();
     }
   }, [formData.state]);
@@ -49,28 +48,13 @@ export default function HospitalSearch() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    e.preventDefault();
-
     if (formData.state && formData.city) {
       navigate(`/search?state=${formData.state}&city=${formData.city}`);
     }
-    /*  if (formData.state && formData.city) {
-       try {
-         const response = await axios.get(`https://eventdata.onrender.com/events`, {
-           params: { state: formData.state, city: formData.city },
-         });
- 
-         // Optionally save or use the data before navigating
-         console.log("Events:", response.data);
-         // navigate only if successful
-         navigate(`/search?state=${formData.state}&city=${formData.city}`);
-       } catch (err) {
-         console.error("Event fetch failed:", err);
-       }
-     } */
   };
+
   return (
     <Box
       component="form"
@@ -80,62 +64,65 @@ export default function HospitalSearch() {
         gap: 4,
         justifyContent: "space-between",
         flexDirection: { xs: "column", md: "row" },
-        position: "relative", // Add position relative
+        position: "relative",
       }}
     >
-      <Select
-        displayEmpty
-        id="state"
-        name="state"
-        value={formData.state}
-        onChange={handleChange}
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchIcon />
-          </InputAdornment>
-        }
-        required
-        sx={{ minWidth: 200, width: "100%" }}
-      >
-        <MenuItem disabled value="">
-          State
-        </MenuItem>
-        {states.map((state) => (
-          <MenuItem key={state} value={state}>
-            {state}
+      {/* State Dropdown */}
+      <div id="state">
+        <Select
+          displayEmpty
+          name="state"
+          value={formData.state}
+          onChange={handleChange}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+          required
+          sx={{ minWidth: 200, width: "100%" }}
+        >
+          <MenuItem disabled value="">
+            State
           </MenuItem>
-        ))}
-      </Select>
+          {states.map((state) => (
+            <MenuItem key={state} value={state}>
+              {state}
+            </MenuItem>
+          ))}
+        </Select>
+      </div>
 
-      <Select
-        displayEmpty
-        id="city"
-        name="city"
-        value={formData.city}
-        onChange={handleChange}
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchIcon />
-          </InputAdornment>
-        }
-        required
-        sx={{ minWidth: 200, width: "100%" }}
-      >
-        <MenuItem disabled value="">
-          City
-        </MenuItem>
-        {cities.map((city) => (
-          <MenuItem key={city} value={city}>
-            {city}
+      {/* City Dropdown */}
+      <div id="city">
+        <Select
+          displayEmpty
+          name="city"
+          value={formData.city}
+          onChange={handleChange}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+          required
+          sx={{ minWidth: 200, width: "100%" }}
+        >
+          <MenuItem disabled value="">
+            City
           </MenuItem>
-        ))}
-      </Select>
+          {cities.map((city) => (
+            <MenuItem key={city} value={city}>
+              {city}
+            </MenuItem>
+          ))}
+        </Select>
+      </div>
 
-      {/* FIXED: Add z-index to ensure button is clickable */}
+      {/* Search Button */}
       <Button
         type="submit"
         variant="contained"
-        title="getEvents"
         id="searchBtn"
         size="large"
         startIcon={<SearchIcon />}
@@ -143,8 +130,8 @@ export default function HospitalSearch() {
           py: "15px",
           px: 8,
           flexShrink: 0,
-          zIndex: 1000, // Add high z-index to ensure it's above other elements
-          position: "relative", // Ensure z-index works
+          zIndex: 1000,
+          position: "relative",
         }}
         disableElevation
       >

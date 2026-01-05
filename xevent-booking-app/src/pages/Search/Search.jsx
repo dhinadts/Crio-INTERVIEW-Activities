@@ -86,12 +86,7 @@ export default function Search() {
           {events.length > 0 && (
             <Box sx={{ mb: 3 }}>
               {/* FIXED: Use component="h1" to create actual h1 element */}
-              <Typography component="h1" fontSize={24} fontWeight={500} mb={2}>
-                {`${events.length} events available in `}
-                <span /*  style={{ textTransform: "capitalize" }} */>
-                  {city}
-                </span>
-              </Typography>
+              {events.length > 0 && (<h1>{events.length} events available in {city}</h1>)}
 
               <Stack direction="row" spacing={2}>
                 <img src={tickIcon} height={24} width={24} alt="verified" />
