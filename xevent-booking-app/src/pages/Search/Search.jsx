@@ -80,6 +80,7 @@ export default function Search() {
               boxShadow: "0 0 10px rgba(0,0,0,0.1)",
               position: "relative",
               zIndex: 100,
+              overflow: "visible !important", // Important to ensure button is clickable
             }}
           >
             <HospitalSearch />
