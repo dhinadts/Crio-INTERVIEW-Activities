@@ -8,75 +8,50 @@ const Chat = ({ generateResponse, setScroll, chat, clearChat }) => {
     const [showSnackbar, setShowSnackbar] = useState(false)
 
     const handleSave = () => {
-
-        const chat_history = JSON.parse(localStorage.getItem('chat')) || [];
-        const date = new Date();
-        localStorage.setItem('chat', JSON.stringify([{ chat: chat, datetime: date }, ...chat_history]));
-        setTimeout(() => clearChat(), 0);
+        const history = JSON.parse(localStorage.getItem('chat')) || []
+        localStorage.setItem(
+            'chat',
+            JSON.stringify([{ chat, datetime: new Date() }, ...history])
+        )
+        clearChat()
         setShowSnackbar(true)
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (!input.trim()) return;
-
-        generateResponse(input);
-        setInput('');
-        setScroll(prev => !prev);
-    };
+        e.preventDefault()
+        generateResponse(input)
+        setInput('')
+        setScroll(prev => !prev)
+    }
 
     useEffect(() => {
-        inputRef.current.focus()
+        inputRef.current?.focus()
     }, [])
-    return (
-        <Box flexShrink={0} px={{ xs: .5, md: 3 }} pb={{ xs: 1, md: 3 }}>
-            <Box component={'form'} onSubmit={handleSubmit}>
-                <Stack direction={'row'} spacing={{ xs: .5, md: 2 }} >
-                    <TextField
-                        placeholder='Please tell me about your query!'
-                        sx={{
-                            flex: 1,
-                            bgcolor: 'primary.light',
-                            borderRadius: 1,
-                            '& input': {
-                                fontSize: { xs: 12, md: 16 },
-                                paddingLeft: { xs: 1, md: 2 },
-                                paddingRight: { xs: 1, md: 2 },
 
-                            }
-                        }}
+    return (
+        <Box px={{ xs: 0.5, md: 3 }} pb={{ xs: 1, md: 3 }}>
+            <Box component="form" onSubmit={handleSubmit}>
+                <Stack direction="row" spacing={{ xs: 0.5, md: 2 }}>
+                    <TextField
+                        placeholder="Please tell me about your query!"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         required
                         inputRef={inputRef}
+                        sx={{ flex: 1 }}
                     />
-                    <Button
-                        variant='contained'
-                        type='submit'
-                        sx={{
-                            fontSize: { xs: 12, md: 16 },
-                            '@media (max-width:767px)': {
-                                minWidth: 0,
-                                paddingLeft: 1.5,
-                                paddingRight: 1.5
-                            }
-                        }}
-                    >
+
+                    {/* ✅ MUST be submit */}
+                    <Button type="submit" variant="contained">
                         Ask
                     </Button>
+
+                    {/* ✅ MUST be button */}
                     <Button
-                        variant='contained'
+                        type="button"
+                        variant="contained"
                         onClick={handleSave}
-                        disabled={!chat.length > 0}
-                        sx={{
-                            fontSize: { xs: 12, md: 16 },
-                            '@media (max-width:767px)': {
-                                minWidth: 0,
-                                paddingLeft: 1.5,
-                                paddingRight: 1.5
-                            }
-                        }}
+                        disabled={!chat.length}
                     >
                         Save
                     </Button>
@@ -85,12 +60,12 @@ const Chat = ({ generateResponse, setScroll, chat, clearChat }) => {
 
             <Snackbar
                 open={showSnackbar}
-                message={'Chat saved.'}
-                onClose={() => setShowSnackbar(false)}
+                message="Chat saved."
                 autoHideDuration={5000}
+                onClose={() => setShowSnackbar(false)}
                 action={
                     <Link to="/history">
-                        <Button size='small'>See past conversations</Button>
+                        <Button size="small">See past conversations</Button>
                     </Link>
                 }
             />
