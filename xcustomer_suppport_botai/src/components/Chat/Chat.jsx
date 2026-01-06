@@ -17,11 +17,15 @@ const Chat = ({ generateResponse, setScroll, chat, clearChat }) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        generateResponse(input)
-        setInput('')
-        setScroll(prev => !prev)
-    }
+        e.preventDefault();
+
+        if (!input.trim()) return;
+
+        generateResponse(input.toLowerCase().trim());
+        setInput('');
+        setScroll(prev => !prev);
+    };
+
     useEffect(() => {
         inputRef.current.focus()
     }, [])
