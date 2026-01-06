@@ -22,29 +22,30 @@ export default function Search() {
     }
   }, [state, city]);
 
-  useEffect(() => {
-    const getEvents = async () => {
-      if (!state || !city) return;
+  const getEvents = async () => {
+    if (!state || !city) return;
 
-      setIsLoading(true);
-      setEvents([]);
+    setIsLoading(true);
+    setEvents([]);
 
-      try {
-        const response = await axios.get(
-          `https://eventdata.onrender.com/events?state=${state}&city=${city}`
-        );
-        setEvents(response.data);
-      } catch (err) {
-        console.error("Error fetching events:", err);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response = await axios.get(
+        `https://eventdata.onrender.com/events`, {
+        params: { state, city },
       }
-    };
-
+      );
+      setEvents(response.data);
+    } catch (err) {
+      console.error("Error fetching events:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
     getEvents();
   }, [state, city]);
 
- 
+
   useEffect(() => {
     setState(searchParams.get("state"));
     setCity(searchParams.get("city"));
@@ -61,7 +62,7 @@ export default function Search() {
           minHeight: "100vh",
         }}
       >
-        
+
         <Box
           sx={{
             background: "linear-gradient(90deg, #2AA7FF, #0C8CE5)",
@@ -82,7 +83,7 @@ export default function Search() {
               boxShadow: "0 0 10px rgba(0,0,0,0.1)",
               position: "relative",
               zIndex: 100,
-              overflow: "visible !important", 
+              overflow: "visible !important",
             }}
           >
             <HospitalSearch />
