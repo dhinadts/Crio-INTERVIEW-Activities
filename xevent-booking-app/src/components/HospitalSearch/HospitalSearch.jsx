@@ -1,142 +1,95 @@
-import { MenuItem, Select, Button, InputAdornment, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { MenuItem, Select, InputAdornment, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function HospitalSearch() {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-  const [formData, setFormData] = useState({ state: "", city: "" });
+
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // Fetch states on mount
+  const state = searchParams.get("state") || "";
+  const city = searchParams.get("city") || "";
+
+  /* ===== Fetch States ===== */
   useEffect(() => {
-    const fetchStates = async () => {
-      try {
-        const response = await axios.get("https://eventdata.onrender.com/states");
-        setStates(response.data);
-      } catch (error) {
-        console.error("Error fetching states:", error);
-      }
-    };
-    fetchStates();
+    axios
+      .get("https://eventdata.onrender.com/states")
+      .then((res) => setStates(res.data))
+      .catch(console.error);
   }, []);
 
-  // Fetch cities when state changes
+  /* ===== Fetch Cities ===== */
   useEffect(() => {
-    const fetchCities = async () => {
-      setCities([]);
-      setFormData((prev) => ({ ...prev, city: "" }));
-      try {
-        const response = await axios.get(
-          `https://eventdata.onrender.com/cities/${formData.state}`
-        );
-        setCities(response.data);
-      } catch (error) {
-        console.error("Error fetching cities:", error);
-      }
-    };
+    if (!state) return;
 
-    if (formData.state !== "") {
-      fetchCities();
-    }
-  }, [formData.state]);
+    axios
+      .get(`https://eventdata.onrender.com/cities/${state}`)
+      .then((res) => setCities(res.data))
+      .catch(console.error);
+  }, [state]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleStateChange = (e) => {
+    navigate(`/search?state=${e.target.value}&city=`);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.state && formData.city) {
-      navigate(`/search?state=${formData.state}&city=${formData.city}`); // 
-    }
+  const handleCityChange = (e) => {
+    navigate(`/search?state=${state}&city=${e.target.value}`);
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ width: "100%" }}>
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={2}
-        alignItems={{ xs: "stretch", md: "center" }}
-        sx={{ width: "100%" }}
-      >
-        {/* State Dropdown */}
-        <div id="state" style={{ flex: 1, minWidth: 0 }}>
-          <Select
-            displayEmpty
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            }
-            required
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              height: "56px",
-              '& .MuiSelect-select': {
-                height: "auto",
-                minHeight: "56px",
-                display: "flex",
-                alignItems: "center",
-              },
-            }}
-          >
-            <MenuItem disabled value="">
-              State
+    <Stack direction={{ xs: "column", md: "row" }} spacing={2} width="100%">
+      {/* State */}
+      <div id="state" style={{ flex: 1 }}>
+        <Select
+          fullWidth
+          displayEmpty
+          value={state}
+          onChange={handleStateChange}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+        >
+          <MenuItem disabled value="">
+            State
+          </MenuItem>
+          {states.map((s) => (
+            <MenuItem key={s} value={s}>
+              {s}
             </MenuItem>
-            {states.map((state) => (
-              <MenuItem key={state} value={state}>
-                {state}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
+          ))}
+        </Select>
+      </div>
 
-        {/* City Dropdown */}
-        <div id="city" style={{ flex: 1, minWidth: 0 }}>
-          <Select
-            displayEmpty
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            }
-            required
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-              height: "56px",
-              '& .MuiSelect-select': {
-                height: "auto",
-                minHeight: "56px",
-                display: "flex",
-                alignItems: "center",
-              },
-            }}
-          >
-            <MenuItem disabled value="">
-              City
+      {/* City */}
+      <div id="city" style={{ flex: 1 }}>
+        <Select
+          fullWidth
+          displayEmpty
+          value={city}
+          disabled={!state}
+          onChange={handleCityChange}
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+        >
+          <MenuItem disabled value="">
+            City
+          </MenuItem>
+          {cities.map((c) => (
+            <MenuItem key={c} value={c}>
+              {c}
             </MenuItem>
-            {cities.map((city) => (
-              <MenuItem key={city} value={city}>
-                {city}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
-
-        {/* Button */}
-      </Stack>
-    </form>
+          ))}
+        </Select>
+      </div>
+    </Stack>
   );
 }
