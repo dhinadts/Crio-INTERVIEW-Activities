@@ -2,7 +2,6 @@ import { Container, Stack, Box, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
 import HospitalCard from "../../components/HospitalCard/HospitalCard";
 import HospitalSearch from "../../components/HospitalSearch/HospitalSearch";
 import NavBar from "../../components/Navbar/Navbar";
@@ -24,20 +23,16 @@ export default function Search() {
   }, [state, city]);
 
   useEffect(() => {
-    if (!state || !city) return;
-
     const getEvents = async () => {
+      if (!state || !city) return;
+
       setIsLoading(true);
       setEvents([]);
 
       try {
         const response = await axios.get(
-          "https://eventdata.onrender.com/events",
-          {
-            params: { state, city },
-          }
+          `https://eventdata.onrender.com/events?state=${state}&city=${city}`
         );
-
         setEvents(response.data);
       } catch (err) {
         console.error("Error fetching events:", err);
@@ -49,9 +44,7 @@ export default function Search() {
     getEvents();
   }, [state, city]);
 
-
-
-  // Sync URL params
+ 
   useEffect(() => {
     setState(searchParams.get("state"));
     setCity(searchParams.get("city"));
@@ -68,7 +61,7 @@ export default function Search() {
           minHeight: "100vh",
         }}
       >
-        {/* Search Bar Section */}
+        
         <Box
           sx={{
             background: "linear-gradient(90deg, #2AA7FF, #0C8CE5)",
@@ -89,14 +82,13 @@ export default function Search() {
               boxShadow: "0 0 10px rgba(0,0,0,0.1)",
               position: "relative",
               zIndex: 100,
-              overflow: "visible !important", // Important to ensure button is clickable
+              overflow: "visible !important", 
             }}
           >
             <HospitalSearch />
           </Container>
         </Box>
 
-        {/* Results */}
         <Container maxWidth="xl" sx={{ pt: 8, pb: 10 }}>
           {events.length > 0 && (
             <Box sx={{ mb: 3 }}>
@@ -140,7 +132,6 @@ export default function Search() {
               </Stack>
             </Box>
 
-            {/* CTA Banner */}
             <Box
               ml={{ md: 3 }}
               mt={{ xs: 4, md: 0 }}

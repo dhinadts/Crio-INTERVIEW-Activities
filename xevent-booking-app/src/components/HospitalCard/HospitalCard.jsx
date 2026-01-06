@@ -11,7 +11,7 @@ export default function HospitalCard({ event, details }) {
   const eventData = event || details || {};
 
   // Extract event name from API response
-  const eventName = eventData["Event Name"] || eventData.eventName || eventData["Hospital Name"] || "Event";
+  const eventName = eventData["eventName"] || eventData.eventName || eventData["Hospital Name"] || "Event";
 
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
