@@ -135,27 +135,7 @@ export default function HospitalSearch() {
           </Select>
         </div>
 
-        {/* Search Button - FIXED: Positioned outside Stack to avoid overlay */}
-        <Button
-          type="submit"
-          variant="contained"
-          id="searchBtn"
-          size="large"
-          startIcon={<SearchIcon />}
-          sx={{
-            height: "56px",
-            px: 6,
-            minWidth: { xs: "100%", md: "140px" },
-            mt: { xs: 1, md: 0 },
-            alignSelf: { xs: "stretch", md: "center" },
-            position: "relative",
-            zIndex: 2,
-            flexShrink: 0,
-          }}
-          disableElevation
-        >
-          Search
-        </Button>
+        {/* Button */}
       </Stack>
     </form>
   );

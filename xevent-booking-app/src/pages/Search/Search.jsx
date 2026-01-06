@@ -1,12 +1,25 @@
-import { Container, Stack, Box, Typography } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
+import axios from "axios";
+
+import {
+  Container,
+  Stack,
+  Box,
+  Typography,
+  Button
+} from "@mui/material";
+
+import SearchIcon from "@mui/icons-material/Search";
+
+import NavBar from "../../components/Navbar/Navbar";
 import HospitalCard from "../../components/HospitalCard/HospitalCard";
 import HospitalSearch from "../../components/HospitalSearch/HospitalSearch";
-import NavBar from "../../components/Navbar/Navbar";
+
 import tickIcon from "../../assets/event_booked.png";
 import cta from "../../assets/singer_2.png";
+
 
 export default function Search() {
   const [searchParams] = useSearchParams();
@@ -14,13 +27,12 @@ export default function Search() {
   const [state, setState] = useState(searchParams.get("state"));
   const [city, setCity] = useState(searchParams.get("city"));
   const [isLoading, setIsLoading] = useState(false);
-  const [canFetch, setCanFetch] = useState(false);
 
+  // Sync URL params → state
   useEffect(() => {
-    if (state && city) {
-      setCanFetch(true);
-    }
-  }, [state, city]);
+    setState(searchParams.get("state"));
+    setCity(searchParams.get("city"));
+  }, [searchParams]);
 
   const getEvents = async () => {
     if (!state || !city) return;
@@ -30,9 +42,8 @@ export default function Search() {
 
     try {
       const response = await axios.get(
-        `https://eventdata.onrender.com/events`, {
-        params: { state, city },
-      }
+        "https://eventdata.onrender.com/events",
+        { params: { state, city } }
       );
       setEvents(response.data);
     } catch (err) {
@@ -41,105 +52,49 @@ export default function Search() {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    getEvents();
-  }, [state, city]);
-
-
-  useEffect(() => {
-    setState(searchParams.get("state"));
-    setCity(searchParams.get("city"));
-  }, [searchParams]);
 
   return (
     <>
       <NavBar />
 
-      <Box
-        sx={{
-          background: "linear-gradient(#EFF5FE, rgba(241,247,255,0.47))",
-          width: "100%",
-          minHeight: "100vh",
-        }}
-      >
+      <Box sx={{ background: "#EFF5FE", minHeight: "100vh" }}>
+        {/* Search Box */}
+        <Container maxWidth="xl" sx={{ pt: 6 }}>
+          <HospitalSearch />
+        </Container>
 
-        <Box
-          sx={{
-            background: "linear-gradient(90deg, #2AA7FF, #0C8CE5)",
-            borderBottomLeftRadius: "1rem",
-            borderBottomRightRadius: "1rem",
-            pb: 8,
-            position: "relative",
-          }}
-        >
-          <Container
-            maxWidth="xl"
-            sx={{
-              background: "#fff",
-              p: 3,
-              borderRadius: 2,
-              transform: "translateY(50px)",
-              mb: "50px",
-              boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-              position: "relative",
-              zIndex: 100,
-              overflow: "visible !important",
-            }}
+        {/* Search Button (ONLY trigger fetch here) */}
+        <Container maxWidth="xl" sx={{ mt: 2 }}>
+          <Button
+            id="searchBtn"
+            variant="contained"
+            size="large"
+            startIcon={<SearchIcon />}
+            onClick={getEvents}
+            disabled={!state || !city}
           >
-            <HospitalSearch />
-          </Container>
-        </Box>
+            Search
+          </Button>
+        </Container>
 
-        <Container maxWidth="xl" sx={{ pt: 8, pb: 10 }}>
-          {events.length > 0 && (
-            <Box sx={{ mb: 3 }}>
-              <Typography component="h1" variant="h4" fontWeight={600} mb={1}>
-                {events.length} events available in {city}
-              </Typography>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <img src={tickIcon} height={24} width={24} alt="verified" />
-                <Typography color="#787887">
-                  Verified events with easy & quick booking
-                </Typography>
-              </Stack>
-            </Box>
+        {/* Results */}
+        <Container maxWidth="xl" sx={{ pt: 4 }}>
+          {isLoading && <Typography>Loading events...</Typography>}
+
+          {!isLoading && events.length > 0 && (
+            <Typography variant="h5">
+              {events.length} events available in {city}
+            </Typography>
           )}
 
-          <Stack direction={{ xs: "column", md: "row" }} alignItems="flex-start">
-            {/* Event Cards */}
-            <Box width={{ xs: "100%", md: "calc(100% - 384px)" }}>
-              <Stack spacing={3}>
-                {events.map((event, index) => (
-                  <HospitalCard key={index} event={event} />
-                ))}
+          {!isLoading && events.length === 0 && state && city && (
+            <Typography>No events found</Typography>
+          )}
 
-                {isLoading && (
-                  <Typography bgcolor="#fff" p={3} borderRadius={2}>
-                    Loading events...
-                  </Typography>
-                )}
-
-                {events.length === 0 && !isLoading && state && city && (
-                  <Typography bgcolor="#fff" p={3} borderRadius={2}>
-                    No events found in {city}, {state}
-                  </Typography>
-                )}
-
-                {!state && !isLoading && (
-                  <Typography bgcolor="#fff" p={3} borderRadius={2}>
-                    Please select a state and city to search for events
-                  </Typography>
-                )}
-              </Stack>
-            </Box>
-
-            <Box
-              ml={{ md: 3 }}
-              mt={{ xs: 4, md: 0 }}
-              sx={{ position: "sticky", top: 20 }}
-            >
-              <img src={cta} width={360} alt="cta" style={{ borderRadius: 8 }} />
-            </Box>
+          <Stack spacing={3} mt={3}>
+            {events.map((event, index) => (
+              <HospitalCard key={index} event={event} />
+            ))}
           </Stack>
         </Container>
       </Box>
