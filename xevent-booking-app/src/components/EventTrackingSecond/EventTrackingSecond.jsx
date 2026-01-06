@@ -28,7 +28,7 @@ export default function EventTrackSecond() {
                         TRACKING EVENTS FOR YOU AND YOUR TEAM
                     </Typography>
 
-                    <Typography variant="h4" fontWeight={700} gutterBottom>
+                    <Typography variant="h4" component="h1" fontWeight={700} gutterBottom>
                         Event Tracker
                     </Typography>
 

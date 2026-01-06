@@ -114,7 +114,7 @@ export default function Search() {
         <Container maxWidth="xl" sx={{ pt: 8, pb: 10 }}>
           {events.length > 0 && (
             <Box sx={{ mb: 3 }}>
-              <Typography variant="h4" fontWeight={600}>
+              <Typography variant="h4" component="h1" fontWeight={600}>
                 {events.length} events available in {city}
               </Typography>
               <Stack direction="row" spacing={2} alignItems="center">

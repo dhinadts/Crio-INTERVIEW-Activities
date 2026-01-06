@@ -41,7 +41,7 @@ export default function EventTracking() {
                         CONNECTING PEOPLE THROUGH EVENTS!!
                     </Typography>
 
-                    <Typography variant="h4" fontWeight={700} gutterBottom>
+                    <Typography variant="h4" component="h1" fontWeight={700} gutterBottom>
                         Event <span style={{ color: "#1976d2" }}>Tracking</span>
                     </Typography>
 

@@ -39,7 +39,7 @@ export default function LatestNews() {
                 <Typography variant="overline" color="primary">
                     Blog & News
                 </Typography>
-                <Typography variant="h4" fontWeight={700}>
+                <Typography variant="h4" component="h1" fontWeight={700}>
                     Read Our Latest News
                 </Typography>
             </Box>

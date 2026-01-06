@@ -35,7 +35,7 @@ export default function DownloadApp() {
 
         {/* Right Content */}
         <Grid item xs={12} md={6}>
-          <Typography variant="h4" fontWeight={700}>
+          <Typography variant="h4" component="h1" fontWeight={700}>
             Download the{" "}
             <span style={{ color: "#1976d2" }}>Event Tracker</span> App
           </Typography>

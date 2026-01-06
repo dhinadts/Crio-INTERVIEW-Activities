@@ -36,7 +36,7 @@ export default function FAQ() {
         <Typography variant="overline" color="primary">
           Get Your Answer
         </Typography>
-        <Typography variant="h4" fontWeight={700}>
+        <Typography variant="h4" component="h1" fontWeight={700}>
           Frequently Asked Questions
         </Typography>
       </Box>

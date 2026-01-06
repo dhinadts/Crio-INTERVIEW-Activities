@@ -199,11 +199,12 @@ export default function HospitalCard({ event, details }) {
               {availableDates.map((date) => (
                 <Button
                   data-testid="date-option"
-                  key={date.date}
                   variant={selectedDate === date.date ? "contained" : "outlined"}
                   onClick={() => setSelectedDate(date.date)}
                 >
-                  {date.display}
+                  <Typography component="p">
+                    {date.display}
+                  </Typography>
                 </Button>
               ))}
             </Stack>
