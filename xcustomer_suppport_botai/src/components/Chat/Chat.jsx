@@ -12,7 +12,7 @@ const Chat = ({ generateResponse, setScroll, chat, clearChat }) => {
         const chat_history = JSON.parse(localStorage.getItem('chat')) || [];
         const date = new Date();
         localStorage.setItem('chat', JSON.stringify([{ chat: chat, datetime: date }, ...chat_history]));
-        clearChat();
+        setTimeout(() => clearChat(), 0);
         setShowSnackbar(true)
     }
 
@@ -21,7 +21,7 @@ const Chat = ({ generateResponse, setScroll, chat, clearChat }) => {
 
         if (!input.trim()) return;
 
-        generateResponse(input.toLowerCase().trim());
+        generateResponse(input);
         setInput('');
         setScroll(prev => !prev);
     };
